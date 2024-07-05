@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* width */
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+:root {
+    --primary-background: 222, 47%, 11%;
+    --primary-foreground: 193, 100%, 93%;
+
+    --secondary-background: 0 0% 100%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent-background: 193, 100%, 93%;
+    --accent-foreground: 21, 100%, 73%;
+
+    --destructive-background: 0 100% 50%;
+    --destructive-foreground: 222.2 47.4% 11.2% --ring: 210 20% 98%;
+
+    --radius: 0.5rem;
+
+    --font-sans: "Inter", sans-serif;
+
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+
+    --primary-glow: radial-gradient(
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0)
+    );
+
+    --secondary-glow: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0)
+    );
+
+    --tile-start-rgb: 239, 245, 249;
+    --tile-end-rgb: 228, 232, 233;
+    --tile-border: conic-gradient(
+        #00000080,
+        #00000040,
+        #00000030,
+        #00000020,
+        #00000010,
+        #00000010,
+        #00000080
+    );
+
+    --text-primary: 222.2 47.4% 11.2%;
+
+    --text-secondary: 0 0% 100%;
+    --text-disabled: 0 0% 100%;
+
+    --text-accent: 222.2 47.4% 11.2%;
+
+    --text-destructive: 0 100% 50%;
+}
+
+.hs::-webkit-scrollbar {
+    display: none;
+}
