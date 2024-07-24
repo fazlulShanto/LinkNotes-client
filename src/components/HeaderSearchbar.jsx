@@ -6,20 +6,15 @@ export default function HeaderSearchbar() {
 
     return (
         <div>
-            <div className="hidden md:flex items-center">
-                <Search size={16} />
+            <div className="hidden md:flex md:gap-2 items-center">
+                <Search size={24} />
                 <input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     type="text"
                     placeholder="Search"
-                    className="p-2 bg-primary border-b border-b-transparent w-full focus:outline-none focus:border-green-300"
+                    className="px-2 bg-primary border-b border-b-transparent w-full focus:outline-none focus:border-blue-300"
                 />
-            </div>
-            <div>
-                <button className="md:hidden flex items-center">
-                    <Search size={28} />
-                </button>
             </div>
         </div>
     );

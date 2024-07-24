@@ -5,6 +5,10 @@ export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
+            animation: {
+                "spin-slow":
+                    "spin 10s cubic-bezier(0.49, -0.53, 0.02, 1.56) infinite",
+            },
             fontFamily: {
                 sans: ["Inter", "sans-serif"],
             },

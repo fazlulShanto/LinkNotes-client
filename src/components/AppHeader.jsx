@@ -1,33 +1,72 @@
-import { MoonIcon } from "lucide-react";
 import { appName } from "../utils/Contents";
-import HeaderSearchbar from "./HeaderSearchbar";
-const defaultProfileUrl =
-    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
+import defaultUser from "../assets/defaultUser.jpg";
+import AppLogo from "../assets/appLogoWithoutBG.png";
+import { PlusCircleIcon } from "lucide-react";
+import { PinIcon } from "lucide-react";
+import { FilterIcon } from "lucide-react";
+import { useState } from "react";
+import Modal from "react-responsive-modal";
+import { XCircle } from "lucide-react";
+import NotesModal from "./CreateNoteModal";
 
-export default function AppHeader({ profileUrl = defaultProfileUrl }) {
+export default function AppHeader({ userAvatarUrl }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const renderAvatar = () => {
         return (
-            <div className="avatar">
-                <div className="ring-primary ring-offset-accent-100 size-8 md:size-10 rounded-full ring ring-offset-2">
-                    <img src={profileUrl} />
+            <button>
+                <div className="avatar mr-1">
+                    <div className="ring-primary ring-offset-accent-100 size-8 md:size-10 rounded-full ring ring-offset-2">
+                        <img src={userAvatarUrl || defaultUser} />
+                    </div>
                 </div>
+            </button>
+        );
+    };
+    const renderAppLogo = () => {
+        return (
+            <div className=" mr-1">
+                <img className="w-[36px] sm:w-16" src={AppLogo} />
             </div>
         );
     };
 
+    const handleAddNewNotes = () => {
+        setIsModalOpen(true);
+    };
+
     return (
-        <div className="flex  w-full justify-between items-center gap-2 py-3 md:py-4 px-4 rounded-md">
+        <div className="bg-primary flex w-full justify-between items-center gap-2 py-3 md:py-4 px-4 rounded-md sm:sticky sm:top-0 sm:z-50">
+            {renderAppLogo()}
             <h1 className="text-xl sm:text-2xl font-bold text-gray-100">
                 {appName}
             </h1>
-            <div className="flex flex-grow justify-end items-center gap-4">
-                <HeaderSearchbar />
 
-                <button className="border border-gray-300 p-2 rounded-full">
-                    <MoonIcon size={20} />
-                </button>
+            <div className="flex flex-grow  justify-end gap-4 items-center">
+                <div className="hidden sm:flex sm:gap-2">
+                    <button
+                        onClick={handleAddNewNotes}
+                        className="btn bg-slate-700"
+                    >
+                        <PlusCircleIcon />
+                    </button>
+                    <button className="btn bg-slate-700">
+                        <PinIcon className="rotate-45" />
+                    </button>
+                    <button className="btn bg-slate-700">
+                        <FilterIcon />
+                    </button>
+                </div>
                 {renderAvatar()}
             </div>
+            <NotesModal
+                isModalOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                modalHeader={"Create a new note"}
+                onPrimaryAction={() => {
+                    console.log(`✅ create new notes`);
+                }}
+                actionType="CREATE"
+            />
         </div>
     );
 }

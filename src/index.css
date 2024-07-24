@@ -70,3 +70,9 @@
 .hs::-webkit-scrollbar {
     display: none;
 }
+
+@layer components {
+    .input-field {
+        @apply bg-transparent w-full sm:w-auto placeholder:text-gray-500 border-0 px-2 focus:border-b-slate-500 focus:outline-none focus:border-b text-gray-400;
+    }
+}
