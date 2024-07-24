@@ -1,29 +1,29 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Dashboard, SignUP, Login } from "../exports";
+import { Dashboard, SignUP, Login, Loader } from "../exports";
 import AppShell from "../components/AppShell";
 import LandingPage from "../pages/LandingPage";
 export const router = createBrowserRouter([
     {
         path: "/",
+        element: <LandingPage />,
+    },
+    {
+        path: "/signup",
+        element: <SignUP />,
+    },
+    {
+        path: "/signin",
+        element: <Login />,
+    },
+    {
+        path: "/",
         element: <AppShell />,
         children: [
             {
-                path: "/",
+                path: "/dashboard",
                 element: <Dashboard />,
             },
-            {
-                path: "/signup",
-                element: <SignUP />,
-            },
-            {
-                path: "/login",
-                element: <Login />,
-            },
         ],
-    },
-    {
-        path: "landing",
-        element: <LandingPage />,
     },
 ]);
 

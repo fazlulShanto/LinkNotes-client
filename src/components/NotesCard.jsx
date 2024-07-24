@@ -1,6 +1,6 @@
-import CheckBoxListNotes from "./notesUi/CheckBoxListNotes";
-import TextNote from "./notesUi/TextNote";
-import UrlNotes from "./notesUi/UrlNotes";
+import CheckBoxListNotes from "./noteCards/CheckBoxListNotes";
+import TextNote from "./noteCards/TextNote";
+import UrlNotes from "./noteCards/UrlNotes";
 
 export default function NotesCard({ notesData }) {
     const noteType = notesData.type;
