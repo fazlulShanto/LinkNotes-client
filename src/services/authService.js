@@ -1,7 +1,6 @@
-import { ApiEndpoints } from "../exports";
-import axios from "../lib/axios";
+import { ApiEndpoints, Axios } from "../exports";
 export const signInService = async ({ email, password }) => {
-    const response = await axios.post(ApiEndpoints.singIn(), {
+    const response = await Axios.post(ApiEndpoints.singIn(), {
         email,
         password,
     });
@@ -15,7 +14,7 @@ export const signUpService = async ({
     password,
 }) => {
     const info = { firstName, lastName, email, password };
-    const response = await axios.post(ApiEndpoints.singUp(), info);
+    const response = await Axios.post(ApiEndpoints.singUp(), info);
     return response;
 };
 
@@ -24,7 +23,7 @@ export const verifyUser = async () => {
         data: {
             dataSource: { userData },
         },
-    } = await axios.get(ApiEndpoints.me());
+    } = await Axios.get(ApiEndpoints.me());
 
     return userData;
 };

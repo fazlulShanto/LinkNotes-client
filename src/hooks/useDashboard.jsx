@@ -10,8 +10,8 @@ export default function useDashboard() {
         setLoading(true);
         const fetcher = async () => {
             try {
-                const data = await getUserAllNotes(123);
-                setUserNoteList(data?.dataSource?.dummyData);
+                const data = await getUserAllNotes();
+                setUserNoteList(data?.dataSource?.notes ?? []);
             } catch (error) {
                 toast.error("Failed to fetch user notes!");
             } finally {

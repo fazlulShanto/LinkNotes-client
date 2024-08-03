@@ -3,16 +3,16 @@ import React from "react";
 import { useState } from "react";
 import Modal from "react-responsive-modal";
 import ViewNotesModal from "./ViewNotesModal";
-import { X } from "lucide-react";
-import { XCircleIcon } from "lucide-react";
-import { Plus } from "lucide-react";
-import { PlusIcon } from "lucide-react";
 import AddTags from "./notesInput/AddTags";
-import NoteTitle from "./notesInput/NoteTitle";
 import NoteTypeSelect from "./notesInput/NoteTypeSelect";
-import NoteDescription from "./notesInput/NoteDescription";
 import CreateTextNote from "./notesInput/CreateTextNote";
 import CreateUrlNote from "./notesInput/CreateUrlNote";
+import CreateCheckListNote from "./notesInput/CreateCheckListNote";
+import InputBoxWithLimit from "./InputBoxWithLimit";
+import { validateNoteInput } from "../utils/utilities";
+import { toast } from "../exports";
+import { createNewNote } from "../services/notesService";
+
 const buttonText = {
     CREATE: "Create Note",
     EDIT: "Save changes",
@@ -24,20 +24,21 @@ const defaultNoteData = {
     description: "",
     url: "",
     shortDescription: "",
-    checkList: "",
-    tags: [],
+    checkList: [],
+    tags: ["text"],
 };
 function NotesModal({
     isModalOpen,
     modalHeader,
     children,
     onClose,
-    onPrimaryAction,
+
     actionType = "CREATE",
     data = defaultNoteData,
 }) {
     const shouldDisable = actionType === "VIEW";
     const isModalActionView = actionType === "VIEW";
+    const [linkTitle, setLinkTitle] = useState("");
     const [noteData, setNoteData] = useState(
         isModalActionView ? data : defaultNoteData
     );
@@ -51,7 +52,22 @@ function NotesModal({
         }));
     };
 
-    const renderNoteCreationModalContent = () => {
+    const onPrimaryAction = (noteData) => {
+        const result = validateNoteInput(noteData);
+        if (!result) {
+            toast.error("Please fill all the note data!");
+            return;
+        }
+        createNewNote(result)
+            .then((res) => {
+                toast.success(`New note successfully added.`);
+            })
+            .catch((er) => {
+                toast.error(`Failed to create new note!.`);
+            });
+    };
+
+    const renderNoteTypeSpecificContent = () => {
         switch (noteData.type) {
             case "text": {
                 return (
@@ -66,6 +82,16 @@ function NotesModal({
             case "url": {
                 return (
                     <CreateUrlNote
+                        noteData={noteData}
+                        setNoteData={setNoteData}
+                        shouldDisable={shouldDisable}
+                        handleNotedataChanges={handleNotedataChanges}
+                    />
+                );
+            }
+            case "checkList": {
+                return (
+                    <CreateCheckListNote
                         noteData={noteData}
                         setNoteData={setNoteData}
                         shouldDisable={shouldDisable}
@@ -101,7 +127,30 @@ function NotesModal({
                     </h1>
                 </div>
 
-                <div id="modal-content">{renderNoteCreationModalContent()}</div>
+                <div id="modal-content" className="flex flex-col gap-3">
+                    <NoteTypeSelect
+                        noteData={noteData}
+                        setNoteData={setNoteData}
+                        shouldDisable={shouldDisable}
+                        handleNotedataChanges={handleNotedataChanges}
+                    />
+
+                    <div className="space-y-3 bg-primary p-2 rounded-lg">
+                        <label htmlFor="note-title">Note Title</label>
+                        <InputBoxWithLimit
+                            id="note-title"
+                            value={noteData.title}
+                            limit={32}
+                            handleOnChange={handleNotedataChanges}
+                        />
+                    </div>
+                    {renderNoteTypeSpecificContent()}
+                    <AddTags
+                        noteData={noteData}
+                        setNoteData={setNoteData}
+                        shouldDisable={shouldDisable}
+                    />
+                </div>
 
                 <div id="modal-footer" className="flex flex-col gap-2">
                     <hr className="border-t border-gray-500" />
@@ -109,8 +158,8 @@ function NotesModal({
                         {buttonText[actionType] ? (
                             <button
                                 className="px-4 rounded-lg btn-success text-zinc-100 bg-emerald-700 disabled:bg-slate-600 disabled:text-slate-300 disabled:cursor-not-allowed"
-                                onClick={onPrimaryAction}
-                                disabled={true}
+                                onClick={() => onPrimaryAction(noteData)}
+                                disabled={shouldDisable}
                             >
                                 {buttonText[actionType]}
                             </button>

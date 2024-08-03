@@ -1,23 +1,28 @@
 import React from "react";
 
 function NoteDescription({
-    noteData,
+    noteData = "",
     shouldDisable = false,
     handleNotedataChanges,
+    limit = 2048,
 }) {
     return (
-        <div className="flex flex-col gap-2 bg-primary p-2 rounded-lg ">
+        <div className="flex flex-col gap-2 bg-primary p-2 rounded-lg relative">
             <label htmlFor="description">Description</label>
             <textarea
                 type="text"
                 rows={4}
                 name="note-description"
                 id="description"
+                maxLength={limit}
                 placeholder="Enter note description"
                 value={noteData.description}
                 onChange={handleNotedataChanges}
                 className="input-field  border-none ring-1 ring-slate-600 focus:ring-1 focus:ring-green-700 rounded-md py-2 text-zinc-300"
             />
+            <span className="absolute right-4 bottom-4 bg-green-900 py-0.5 px-1 text-sm rounded-md">
+                {noteData?.description?.length || 0}/{limit}
+            </span>
         </div>
     );
 }

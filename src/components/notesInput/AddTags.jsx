@@ -1,20 +1,23 @@
 import { X, PlusIcon } from "lucide-react";
 import React from "react";
 import { useState } from "react";
+import {
+    MAX_TAGS_COUNT_LIMIT,
+    TAGS_TEXT_CHAR_LIMIT,
+} from "../../utils/Contents.jsx";
+import { cn } from "../../exports.jsx";
 
-const tagsTextLimit = {
-    min: 3,
-    max: 24,
-};
-const maxTagsCount = 10;
-
+const tagsTextLimit = TAGS_TEXT_CHAR_LIMIT;
 function AddTags({ noteData, shouldDisable = false, setNoteData }) {
+    const maxTagsCount = MAX_TAGS_COUNT_LIMIT;
+
     const shouldDisableTagInput =
         noteData.tags.length >= maxTagsCount || shouldDisable;
+
     const [tag, setTag] = useState("");
 
     const handleAddTag = () => {
-        if (tag.length < tagsTextLimit.min) {
+        if (tag.length < tagsTextLimit.MIN) {
             return;
         }
         setNoteData((old) => {
@@ -46,7 +49,12 @@ function AddTags({ noteData, shouldDisable = false, setNoteData }) {
                         >
                             {v}
                             <button
-                                className="text-gray-400 hover:text-rose-500"
+                                className={cn(
+                                    "text-gray-400 hover:text-rose-500",
+                                    {
+                                        hidden: i == 0,
+                                    }
+                                )}
                                 onClick={() => handleRemoveTag(v)}
                             >
                                 <X className="w-5 " />
@@ -60,7 +68,12 @@ function AddTags({ noteData, shouldDisable = false, setNoteData }) {
 
     return (
         <div className="flex flex-col gap-2 bg-primary p-2 rounded-lg ">
-            <label htmlFor="tags">Add Tags</label>
+            <div className="space-x-2">
+                <label htmlFor="tags">Add Tags</label>
+                <span className="badge badge-info font-bold">
+                    {noteData?.tags?.length ?? 0}
+                </span>
+            </div>
             <div className="w-full flex  gap-2 relative">
                 <input
                     type="text"
@@ -68,7 +81,7 @@ function AddTags({ noteData, shouldDisable = false, setNoteData }) {
                     id="tags"
                     value={tag}
                     placeholder={`Enter Tags`}
-                    maxLength={tagsTextLimit.max}
+                    maxLength={tagsTextLimit.MAX}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
                             handleAddTag();
@@ -80,7 +93,7 @@ function AddTags({ noteData, shouldDisable = false, setNoteData }) {
                 <div
                     className={`absolute text-xs right-36 translate-y-1/2 bg-green-900 rounded-md px-2 py-1 ${shouldDisableTagInput ? "hidden" : ""}`}
                 >
-                    {tag.length}/{tagsTextLimit.max}
+                    {tag.length}/{tagsTextLimit.MAX}
                 </div>
                 <button
                     className={`btn bg-slate-800 hover:bg-slate-600 ${shouldDisableTagInput ? "hidden" : ""}`}

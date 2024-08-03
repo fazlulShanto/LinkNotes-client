@@ -4,6 +4,9 @@ const ApiEndpoints = {
     singUp: () => `${baseUrl}/api/user/sign-up`,
     dummyData: () => `${baseUrl}/api/dummy-data`,
     me: () => `${baseUrl}/api/user/me`,
+    notes: () => `${baseUrl}/api/notes`,
+    getAllNotes: () => `${baseUrl}/api/notes`,
+    createANewNotes: () => `${baseUrl}/api/notes`,
 };
 
 export default ApiEndpoints;

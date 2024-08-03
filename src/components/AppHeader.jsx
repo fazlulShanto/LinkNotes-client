@@ -5,9 +5,8 @@ import { PlusCircleIcon } from "lucide-react";
 import { PinIcon } from "lucide-react";
 import { FilterIcon } from "lucide-react";
 import { useState } from "react";
-import Modal from "react-responsive-modal";
-import { XCircle } from "lucide-react";
 import NotesModal from "./CreateNoteModal";
+import { validateNoteInput } from "../utils/utilities";
 
 export default function AppHeader({ userAvatarUrl }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,9 +61,6 @@ export default function AppHeader({ userAvatarUrl }) {
                 isModalOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 modalHeader={"Create a new note"}
-                onPrimaryAction={() => {
-                    console.log(`✅ create new notes`);
-                }}
                 actionType="CREATE"
             />
         </div>

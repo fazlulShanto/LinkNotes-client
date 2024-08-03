@@ -8,7 +8,6 @@ import { ShieldAlertIcon } from "lucide-react";
 import { Loader2Icon } from "lucide-react";
 import "react-responsive-modal/styles.css";
 import { AppContextProvider } from "./hooks/useAppContext";
-
 function App() {
     return (
         <AppContextProvider>

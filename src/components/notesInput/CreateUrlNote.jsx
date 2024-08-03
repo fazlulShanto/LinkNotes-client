@@ -12,25 +12,10 @@ function CreateUrlNote({
 }) {
     return (
         <div className="flex flex-col gap-3">
-            <NoteTypeSelect
-                noteData={noteData}
-                shouldDisable={shouldDisable}
-                handleNotedataChanges={handleNotedataChanges}
-            />
-            <NoteTitle
-                noteData={noteData}
-                shouldDisable={shouldDisable}
-                handleNotedataChanges={handleNotedataChanges}
-            />
             <NoteURLInput
                 noteData={noteData}
                 shouldDisable={shouldDisable}
                 handleNotedataChanges={handleNotedataChanges}
-            />
-            <AddTags
-                noteData={noteData}
-                setNoteData={setNoteData}
-                shouldDisable={shouldDisable}
             />
         </div>
     );

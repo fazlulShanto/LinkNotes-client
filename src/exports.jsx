@@ -2,7 +2,7 @@ import Dashboard from "./pages/Dashboard";
 import SignUP from "./pages/SignUp.jsx";
 import Login from "./pages/LogIn.jsx";
 import appRouter from "./utils/Router.jsx";
-import { baseUrl } from "./lib/axios.js";
+import Axios, { baseUrl } from "./lib/axios.js";
 import ApiEndpoints from "./utils/ApiEndpoints.js";
 import {
     signUpService,
@@ -17,6 +17,7 @@ import { cn } from "./utils/utilities.js";
 
 export {
     cn,
+    Axios,
     appRouter,
     Dashboard,
     SignUP,

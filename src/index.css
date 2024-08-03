@@ -3,16 +3,29 @@
 @tailwind utilities;
 /* width */
 @layer utilities {
-    .no-scrollbar::-webkit-scrollbar {
+    .hide-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
         display: none;
     }
 
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+    .show-scrollbar-on-hover {
+        transition: padding-right 0.2s ease;
+    }
+
+    .show-scrollbar-on-hover:hover {
+        padding-right: 10px; /* Adjust based on your scrollbar width */
+        -ms-overflow-style: auto;
+        scrollbar-width: 8px;
+    }
+
+    .show-scrollbar-on-hover:hover::-webkit-scrollbar {
+        display: block;
     }
 }
-
 :root {
     --primary-background: 222, 47%, 11%;
     --primary-foreground: 193, 100%, 93%;
@@ -67,12 +80,29 @@
     --text-destructive: 0 100% 50%;
 }
 
-.hs::-webkit-scrollbar {
-    display: none;
-}
-
 @layer components {
     .input-field {
         @apply bg-transparent w-full sm:w-auto placeholder:text-gray-500 border-0 px-2 focus:border-b-slate-500 focus:outline-none focus:border-b text-gray-400;
     }
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-200;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-900 rounded hover:bg-gray-500;
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+
+    scrollbar-color: #9ca3af none;
 }

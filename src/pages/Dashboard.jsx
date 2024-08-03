@@ -9,6 +9,7 @@ import { PlusCircleIcon } from "lucide-react";
 import { HomeIcon } from "lucide-react";
 import { FilterIcon } from "lucide-react";
 import { PinIcon } from "lucide-react";
+import DemoComponent from "../components/DemoComponent";
 
 export default function Dashboard() {
     const { state, dispatch } = useAppContext();
@@ -25,6 +26,7 @@ export default function Dashboard() {
             <div className="flex w-full flex-col justify-between sm:flex-row gap-2">
                 <GreetingsCard userInfo={state.userInfo} />
             </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 cent w-full gap-2">
                 {userNoteList.map((data, idx) => (
                     <div key={idx + data.noteTitle}>
