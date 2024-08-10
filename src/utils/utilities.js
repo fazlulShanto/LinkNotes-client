@@ -85,6 +85,19 @@ export const validateNoteInput = (noteData) => {
             return null;
     }
 };
+export const randomBadgeClassName = () => {
+    const classList = [
+        "badge-info",
+        "badge-primary",
+        "badge-secondary",
+        "badge-success",
+        "badge-accent",
+        "badge-warning",
+    ];
+    const randomIndex = Math.floor(Math.random() * classList.length);
+    return classList[randomIndex];
+};
+
 /*
 {
     "type": "checkList",

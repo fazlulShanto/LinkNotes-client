@@ -11,11 +11,16 @@ import { PlusCircleIcon } from "lucide-react";
 import { HomeIcon } from "lucide-react";
 import { FilterIcon } from "lucide-react";
 import { PinIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import CreateNotesModal from "./CreateNoteModal";
 
 export default function AppShell() {
     // check if user authenticated
     const { state, dispatch } = useAppContext();
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigator = useNavigate();
+
     useEffect(() => {
         const checker = async () => {
             try {
@@ -35,6 +40,7 @@ export default function AppShell() {
         };
         checker();
     }, [state.userInfo.userId]);
+
     const bottomMenuIconSize = 28;
     return (
         <div className="flex flex-col gap-2 w-full h-screen bg-primary">
@@ -47,19 +53,27 @@ export default function AppShell() {
             </div>
             {/* <div> */}
             <div className="sticky sm:hidden bottom-0 h-fit w-full bg-primary flex justify-between p-3">
-                <button className="">
+                <Link to={"dashboard"}>
                     <HomeIcon className="" size={bottomMenuIconSize} />
-                </button>
-                <button className="">
+                </Link>
+                <button className="" onClick={() => setIsModalOpen(true)}>
                     <PlusCircleIcon className="" size={bottomMenuIconSize} />
                 </button>
-                <button>
+                <Link to={"pinned-notes"}>
                     <PinIcon className="rotate-45" size={bottomMenuIconSize} />
-                </button>
+                </Link>
                 <button className="">
                     <FilterIcon className="" size={bottomMenuIconSize} />
                 </button>
             </div>
+            {isModalOpen ? (
+                <CreateNotesModal
+                    isModalOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    modalHeader={"Create a new note"}
+                    actionType="CREATE"
+                />
+            ) : null}
         </div>
     );
 }

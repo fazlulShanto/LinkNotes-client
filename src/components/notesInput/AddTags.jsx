@@ -6,6 +6,7 @@ import {
     TAGS_TEXT_CHAR_LIMIT,
 } from "../../utils/Contents.jsx";
 import { cn } from "../../exports.jsx";
+import { XCircle } from "lucide-react";
 
 const tagsTextLimit = TAGS_TEXT_CHAR_LIMIT;
 function AddTags({ noteData, shouldDisable = false, setNoteData }) {
@@ -45,7 +46,7 @@ function AddTags({ noteData, shouldDisable = false, setNoteData }) {
                     return (
                         <div
                             key={i + v + i}
-                            className="badge badge-neutral gap-1 h-auto"
+                            className="badge badge-neutral badge-sm sm:badge-lg gap-1 h-auto"
                         >
                             {v}
                             <button
@@ -57,7 +58,7 @@ function AddTags({ noteData, shouldDisable = false, setNoteData }) {
                                 )}
                                 onClick={() => handleRemoveTag(v)}
                             >
-                                <X className="w-5 " />
+                                <XCircle className="size-3.5 sm:size-5 text-red-800 sm:text-inherit" />
                             </button>
                         </div>
                     );
@@ -69,8 +70,10 @@ function AddTags({ noteData, shouldDisable = false, setNoteData }) {
     return (
         <div className="flex flex-col gap-2 bg-primary p-2 rounded-lg ">
             <div className="space-x-2">
-                <label htmlFor="tags">Add Tags</label>
-                <span className="badge badge-info font-bold">
+                <label htmlFor="tags" className="text-sm sm:text-sm">
+                    Add Tags
+                </label>
+                <span className="badge badge-info badge-sm sm:badge-md  font-bold">
                     {noteData?.tags?.length ?? 0}
                 </span>
             </div>
@@ -88,24 +91,25 @@ function AddTags({ noteData, shouldDisable = false, setNoteData }) {
                         }
                     }}
                     onChange={(e) => setTag(e.currentTarget.value)}
-                    className={`input-field  border-none ring-1 ring-slate-600 focus:ring-1 focus:ring-green-700 rounded-md py-2 w-full  text-zinc-300 ${shouldDisableTagInput ? "hidden" : "visible"}`}
+                    className={`input-field h-fit py-2 text-xs sm:text-base border-none ring-1 ring-slate-600 focus:ring-1 focus:ring-green-700 rounded-md sm:py-2 w-full  text-zinc-300 ${shouldDisableTagInput ? "hidden" : "visible"}`}
                 />
                 <div
-                    className={`absolute text-xs right-36 translate-y-1/2 bg-green-900 rounded-md px-2 py-1 ${shouldDisableTagInput ? "hidden" : ""}`}
+                    className={`absolute text-xxs sm:text-xs right-[56px] sm:right-32 top-1.5 sm:top-2 bg-green-900 rounded-md px-2 py-1 ${shouldDisableTagInput ? "hidden" : ""}`}
                 >
                     {tag.length}/{tagsTextLimit.MAX}
                 </div>
                 <button
-                    className={`btn bg-slate-800 hover:bg-slate-600 ${shouldDisableTagInput ? "hidden" : ""}`}
+                    className={`btn btn-sm sm:btn-md bg-slate-800 hover:bg-slate-600 ${shouldDisableTagInput ? "hidden" : ""}`}
                     onClick={() => {
                         handleAddTag();
                     }}
                 >
-                    <PlusIcon /> Add Tag
+                    <PlusIcon className="size-4 sm:size-5" />
+                    <span className="sm:block hidden">Add Tag</span>
                 </button>
             </div>
             {noteData.tags.length >= maxTagsCount ? (
-                <p className="text-rose-200 bg-rose-900 p-2 rounded-lg">
+                <p className="text-rose-200 text-xs sm:text-base bg-rose-900 p-2 rounded-lg">
                     You can't add more then {maxTagsCount} Tags. Please delete
                     one to add.
                 </p>

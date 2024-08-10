@@ -12,3 +12,15 @@ export const createNewNote = async (noteData) => {
     const { data } = await Axios.post(ApiEndpoints.createANewNotes(), noteData);
     return data;
 };
+
+export const deleteSingleNote = async (noteId) => {
+    if (!noteId) {
+        throw new Error(`noteData is missing!`);
+    }
+    const { data } = await Axios.delete(ApiEndpoints.deleteNotes(), {
+        data: JSON.stringify({
+            noteIds: [noteId],
+        }),
+    });
+    return data;
+};

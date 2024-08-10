@@ -7,6 +7,7 @@ const ApiEndpoints = {
     notes: () => `${baseUrl}/api/notes`,
     getAllNotes: () => `${baseUrl}/api/notes`,
     createANewNotes: () => `${baseUrl}/api/notes`,
+    deleteNotes: () => `${baseUrl}/api/notes`,
 };
 
 export default ApiEndpoints;

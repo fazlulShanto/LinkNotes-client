@@ -46,7 +46,7 @@ function CreateCheckListNote({
     const renderCheckList = () => {
         const checkboxList = noteData?.checkList ?? [];
         return (
-            <div className="flex flex-col max-h-20 gap-2 p-1 overflow-y-auto">
+            <div className="flex flex-col max-h-28 sm:max-h-28 gap-2 p-1 overflow-y-auto">
                 {checkboxList?.map((v, idx) => {
                     return (
                         <div
@@ -68,10 +68,12 @@ function CreateCheckListNote({
     };
 
     return (
-        <div className="flex flex-col gap-2 bg-primary p-2 rounded-lg">
+        <div className="flex flex-col gap-1 sm:gap-2 bg-primary p-2 rounded-lg">
             <div className="space-x-2">
-                <label htmlFor="check-item">Checkbox Item</label>
-                <span className="badge badge-info font-bold">
+                <label htmlFor="check-item" className="text-sm sm:text-base">
+                    Checkbox Item
+                </label>
+                <span className="badge badge-sm sm:badge-md badge-info font-bold">
                     {noteData?.checkList?.length ?? 0}
                 </span>
             </div>
@@ -91,11 +93,11 @@ function CreateCheckListNote({
                     id={"check-item"}
                 />
                 <button
-                    className={`btn bg-slate-800 hover:bg-slate-600 ${shouldDisableTagInput ? "hidden" : ""}`}
+                    className={`btn btn-sm sm:btn-md bg-green-800 text-white hover:bg-green-900 disabled:cursor-not-allowed ${shouldDisableTagInput ? "hidden" : ""}`}
                     onClick={handleAddNewCheckboxItem}
                     disabled={checkboxItemText.length < minLength}
                 >
-                    <PlusIcon />
+                    <PlusIcon className="size-4 sm:size-5" />
                 </button>
             </div>
             {renderCheckList()}

@@ -27,7 +27,8 @@ export default function Dashboard() {
                 <GreetingsCard userInfo={state.userInfo} />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 cent w-full gap-2">
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 columns-4 w-full gap-2"> */}
+            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 w-full space-y-2 gap-2">
                 {userNoteList.map((data, idx) => (
                     <div key={idx + data.noteTitle}>
                         <NotesCard notesData={data} />

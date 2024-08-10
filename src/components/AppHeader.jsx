@@ -5,7 +5,7 @@ import { PlusCircleIcon } from "lucide-react";
 import { PinIcon } from "lucide-react";
 import { FilterIcon } from "lucide-react";
 import { useState } from "react";
-import NotesModal from "./CreateNoteModal";
+import CreateNotesModal from "./CreateNoteModal";
 import { validateNoteInput } from "../utils/utilities";
 
 export default function AppHeader({ userAvatarUrl }) {
@@ -57,7 +57,7 @@ export default function AppHeader({ userAvatarUrl }) {
                 </div>
                 {renderAvatar()}
             </div>
-            <NotesModal
+            <CreateNotesModal
                 isModalOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 modalHeader={"Create a new note"}

@@ -27,18 +27,16 @@ const defaultNoteData = {
     checkList: [],
     tags: ["text"],
 };
-function NotesModal({
+function CreateNotesModal({
     isModalOpen,
     modalHeader,
     children,
     onClose,
-
     actionType = "CREATE",
     data = defaultNoteData,
 }) {
     const shouldDisable = actionType === "VIEW";
     const isModalActionView = actionType === "VIEW";
-    const [linkTitle, setLinkTitle] = useState("");
     const [noteData, setNoteData] = useState(
         isModalActionView ? data : defaultNoteData
     );
@@ -54,12 +52,14 @@ function NotesModal({
 
     const onPrimaryAction = (noteData) => {
         const result = validateNoteInput(noteData);
+
         if (!result) {
             toast.error("Please fill all the note data!");
             return;
         }
         createNewNote(result)
             .then((res) => {
+                onClose();
                 toast.success(`New note successfully added.`);
             })
             .catch((er) => {
@@ -116,11 +116,11 @@ function NotesModal({
             closeOnOverlayClick={false}
             showCloseIcon={false}
             classNames={{
-                modal: "p-6 rounded-lg max-w-lg w-[90vw] sm:max-w-[800px] bg-slate-800 text-secondary",
+                modal: "p-3 sm:p-6 rounded-lg max-w-lg w-[90vw] sm:max-w-[800px] bg-slate-950 text-secondary",
             }}
             closeIcon={<XCircle size={24} />}
         >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 sm:gap-3">
                 <div id="modal-header">
                     <h1 className="text-secondary font-medium text-xl">
                         {modalHeader}
@@ -135,8 +135,13 @@ function NotesModal({
                         handleNotedataChanges={handleNotedataChanges}
                     />
 
-                    <div className="space-y-3 bg-primary p-2 rounded-lg">
-                        <label htmlFor="note-title">Note Title</label>
+                    <div className="space-y-2 sm:space-y-3 bg-primary p-2 rounded-lg">
+                        <label
+                            htmlFor="note-title"
+                            className="text-sm sm:text-base"
+                        >
+                            Note Title
+                        </label>
                         <InputBoxWithLimit
                             id="note-title"
                             value={noteData.title}
@@ -157,14 +162,17 @@ function NotesModal({
                     <div className="flex flex-row-reverse w-full gap-4">
                         {buttonText[actionType] ? (
                             <button
-                                className="px-4 rounded-lg btn-success text-zinc-100 bg-emerald-700 disabled:bg-slate-600 disabled:text-slate-300 disabled:cursor-not-allowed"
+                                className="px-4  rounded-lg btn-success text-zinc-100 bg-emerald-700 disabled:bg-slate-600 disabled:text-slate-300 disabled:cursor-not-allowed"
                                 onClick={() => onPrimaryAction(noteData)}
                                 disabled={shouldDisable}
                             >
                                 {buttonText[actionType]}
                             </button>
                         ) : null}
-                        <button className="btn" onClick={onClose}>
+                        <button
+                            className="btn btn-sm sm:btn-md"
+                            onClick={onClose}
+                        >
                             Close
                         </button>
                     </div>
@@ -174,4 +182,4 @@ function NotesModal({
     );
 }
 
-export default NotesModal;
+export default CreateNotesModal;

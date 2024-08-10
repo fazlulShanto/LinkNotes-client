@@ -18,6 +18,9 @@ export default {
                 accent: "hsl(var(--accent-background))",
                 destructive: "hsl(var(--destructive-background))",
             },
+            fontSize: {
+                xxs: ["10px", "14px"],
+            },
         },
     },
     plugins: [

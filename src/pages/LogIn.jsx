@@ -32,7 +32,6 @@ export default function LogIn() {
                 action: stateActions.updateUserInfo,
                 data: userData,
             });
-            console.log(`updateing user info`, userData);
             navigator("/dashboard");
         } catch (error) {
             toast.error(
