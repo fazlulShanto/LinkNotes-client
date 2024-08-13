@@ -4,6 +4,7 @@ import { LockKeyhole } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
+    Loader,
     signInService,
     toast,
     useAppContext,
@@ -13,7 +14,7 @@ import {
 import BrandLogo from "../components/BrandLogo";
 import { appName, developerInfo } from "../utils/Contents";
 
-export default function LogIn() {
+const RecoverPassword = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showLoader, setShowLoader] = useState(false);
@@ -24,21 +25,21 @@ export default function LogIn() {
         setShowLoader(true);
         try {
             const response = await signInService({ email, password });
-            const { userData } = response?.data?.dataSource;
+            const {
+                data: {
+                    dataSource: { userData },
+                },
+            } = response;
             dispatch({
                 action: stateActions.updateUserInfo,
                 data: userData,
             });
             navigator("/dashboard");
         } catch (error) {
-            let message = error.response?.data?.message;
-            if (Array.isArray(message)) {
-                message.forEach((v) => {
-                    toast.error(v?.msg);
-                });
-            } else {
-                toast.error("Failed to Log In! please try again");
-            }
+            toast.error(
+                error.response?.data?.message ??
+                    "Failed to Log In! please try again"
+            );
         } finally {
             setShowLoader(false);
         }
@@ -49,8 +50,8 @@ export default function LogIn() {
             <div className="rounded-xl sm:card-box-shadow w-full sm:w-[400px] h-auto flex flex-col gap-8 py-4 text-center pt-8">
                 <div className="flex flex-col gap-2">
                     <div className="flex justify-center items-center">
-                        <div className="avatar">
-                            <div className="w-16 rounded-full">
+                        <div class="avatar">
+                            <div class="w-16 rounded-full">
                                 <BrandLogo />
                             </div>
                         </div>
@@ -61,7 +62,7 @@ export default function LogIn() {
                     </p>
                 </div>
 
-                <h1 className="text-3xl py-2 font-bold">Sign in</h1>
+                <h1 className="text-3xl py-2 font-bold">Recover Password</h1>
 
                 <div className="flex flex-col gap-8 px-4 w-full">
                     <label className="input border border-gray-600 focus:outline-none focus:border-none focus-within:outline-sky-400 bg-transparent flex gap-2 py-2 rounded-xl">
@@ -73,32 +74,16 @@ export default function LogIn() {
                             placeholder="Enter your email"
                         />
                     </label>
-                    <div className="space-y-3">
-                        <label className="input border border-gray-600 focus:outline-none focus:border-none focus-within:outline-sky-400 bg-transparent flex gap-2 py-2 rounded-xl">
-                            <LockKeyhole size={28} className="text-sky-500" />
-                            <input
-                                className="bg-transparent w-full border-0 placeholder:text-gray-500 px-2 focus:border-b-slate-500 focus:outline-none  text-gray-400"
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter your password"
-                            />
-                        </label>
-                        <p className="text-right text-sky-600">
-                            <Link to={"/recover-password"}>
-                                Forgot password?
-                            </Link>
-                        </p>
-                    </div>
+
                     <button
                         type="button"
                         onClick={handleLogin}
-                        className="bg-sky-700 w-full px-10 font-semibold h-10 flex justify-center items-center gap-2 rounded-full self-center text-white"
+                        className="w-full px-10 font-semibold h-10 flex justify-center items-center gap-2 rounded-full self-center bg-sky-700 text-white"
                     >
                         {showLoader ? (
                             <span className="loading loading-spinner text-primary"></span>
                         ) : null}
-                        <span className="font-medium">Sing In</span>
+                        <span className="font-medium">Recover</span>
                     </button>
                 </div>
 
@@ -129,4 +114,6 @@ export default function LogIn() {
             </footer>
         </div>
     );
-}
+};
+
+export default RecoverPassword;

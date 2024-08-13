@@ -24,7 +24,7 @@ export default function AppHeader({ userAvatarUrl }) {
     const renderAppLogo = () => {
         return (
             <div className=" mr-1">
-                <img className="w-[36px] sm:w-16" src={AppLogo} />
+                <img className="w-[36px] sm:w-10" src={AppLogo} />
             </div>
         );
     };
@@ -34,11 +34,13 @@ export default function AppHeader({ userAvatarUrl }) {
     };
 
     return (
-        <div className="bg-primary flex w-full justify-between items-center gap-2 py-3 md:py-4 px-4 rounded-md sm:sticky sm:top-0 sm:z-50">
-            {renderAppLogo()}
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-100">
-                {appName}
-            </h1>
+        <div className="bg-primary flex w-full justify-between items-center gap-2 py-4 md:py-4 px-2 rounded-md sm:sticky sm:top-0 sm:z-50">
+            <div className="flex">
+                {renderAppLogo()}
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-100">
+                    {appName}
+                </h1>
+            </div>
 
             <div className="flex flex-grow  justify-end gap-4 items-center">
                 <div className="hidden sm:flex sm:gap-2">

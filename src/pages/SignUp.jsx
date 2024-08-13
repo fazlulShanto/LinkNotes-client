@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { User } from "lucide-react";
 import { signUpService, toast, Loader, useNavigate } from "../exports";
 import { useState } from "react";
+import BrandLogo from "../components/BrandLogo";
+import { appName, developerInfo } from "../utils/Contents";
 
 export default function SignUp() {
     const [showLoader, setShowLoader] = useState(false);
@@ -19,11 +21,12 @@ export default function SignUp() {
             password: formData.get("password"),
         };
         setShowLoader(true);
+        console.log(`✅`, data);
 
         signUpService(data)
             .then((data) => {
-                toast.success("Successfully Signed Up!");
-                navigator("/dashboard");
+                toast.success("Successfully created new account!");
+                navigator("/signin");
                 setShowLoader(false);
             })
             .catch((err) => {
@@ -44,16 +47,31 @@ export default function SignUp() {
     }
 
     return (
-        <div className="w-screen h-screen flex justify-center px-4 items-center bg-slate-900">
-            <div className="sm:max-w-lg rounded-xl w-full h-auto flex flex-col gap-6 py-4 shadow-2xl bg-slate-800 text-center">
-                <h1 className="text-3xl py-2">Sign Up</h1>
-                <hr className="w-11/12 hidden sm:w-7/12 self-center border-slate-600" />
+        <div className="w-screen relative text-gray-300 h-screen flex justify-center px-4 items-center bg-slate-900">
+            <div className="rounded-xl sm:card-box-shadow w-full sm:w-[400px] h-auto flex flex-col gap-8 py-4 text-center pt-8">
+                <div className="flex flex-col gap-2">
+                    <div className="flex justify-center items-center">
+                        <div className="avatar">
+                            <div className="w-16 rounded-full">
+                                <BrandLogo />
+                            </div>
+                        </div>
+                        <p className="text-3xl font-medium">{appName}</p>
+                    </div>
+                    <p className="text-sm italic">
+                        Notes, Checklists, and Bookmarks - Your Way!
+                    </p>
+                </div>
+
+                <h1 className="text-3xl py-2 font-bold">
+                    Create a new account!
+                </h1>
 
                 <form
-                    className="flex flex-col gap-8 px-4"
+                    className="flex flex-col gap-8 px-4 w-full"
                     onSubmit={handleFormSubmit}
                 >
-                    <div className="flex justify-center gap-2  rounded-xl">
+                    <label className="input-label">
                         <User size={24} className="text-sky-500" />
                         <input
                             className="input-field"
@@ -64,9 +82,9 @@ export default function SignUp() {
                             name="firstName"
                             placeholder="First name"
                         />
-                    </div>
+                    </label>
 
-                    <div className="flex justify-center gap-2 rounded-xl">
+                    <label className="input-label">
                         <User size={24} className="text-sky-500" />
                         <input
                             className="input-field"
@@ -77,9 +95,9 @@ export default function SignUp() {
                             maxLength={32}
                             placeholder="Last name"
                         />
-                    </div>
+                    </label>
 
-                    <div className="flex justify-center gap-2 rounded-xl">
+                    <label className="input-label">
                         <Mail size={24} className="text-sky-500" />
                         <input
                             className="input-field"
@@ -89,9 +107,9 @@ export default function SignUp() {
                             required
                             placeholder="Enter your email"
                         />
-                    </div>
+                    </label>
 
-                    <div className="flex justify-center gap-2 rounded-xl">
+                    <label className="input-label">
                         <LockKeyhole size={24} className="text-sky-500" />
                         <input
                             className="input-field"
@@ -101,25 +119,43 @@ export default function SignUp() {
                             maxLength={32}
                             required
                             placeholder="Enter your password"
+                            autoComplete="off"
                         />
-                    </div>
+                    </label>
 
                     <button
                         type="submit"
-                        className="bg-slate-300 px-10 font-semibold h-10 rounded-full self-center text-slate-800 hover:bg-sky-700 hover:text-white"
+                        className="bg-sky-700 w-full px-10 font-semibold h-10 flex justify-center items-center gap-2 rounded-full self-center text-white"
                     >
-                        Sing In
+                        Sing Up
                     </button>
                 </form>
-                <p className="text-sm space-x-1">
-                    <span className=" italic">
+
+                <p className="text-base space-x-1">
+                    <span className="text-gray-400">
                         {"Already have an account? "}
                     </span>
-                    <Link to={"/signin"} className="text-sky-500">
+                    <Link to={"/signin"} className="w-full text-sky-400">
                         Sign In
                     </Link>
                 </p>
             </div>
+
+            <footer className="absolute bottom-4">
+                <p>
+                    Made with 💗 by{" "}
+                    <a
+                        target="_blank"
+                        rel="noopener"
+                        href={developerInfo.github}
+                        className="link link-success"
+                    >
+                        {developerInfo.name}
+                    </a>
+                    &copy;
+                    {new Date().getFullYear()}
+                </p>
+            </footer>
         </div>
     );
 }

@@ -81,8 +81,14 @@
 }
 
 @layer components {
+    .input-label {
+        @apply input border border-gray-600 focus:outline-none focus:border-none focus-within:outline-sky-400 bg-transparent flex gap-2 py-2 rounded-xl;
+    }
     .input-field {
-        @apply bg-transparent w-full sm:w-auto placeholder:text-gray-500 border-0 px-2 focus:border-b-slate-500 focus:outline-none focus:border-b text-gray-400;
+        @apply w-full bg-transparent placeholder:text-gray-500 px-2 text-gray-200;
+    }
+    .card-box-shadow {
+        box-shadow: -4px -5px 36px -12px #1c2c4f;
     }
 }
 
