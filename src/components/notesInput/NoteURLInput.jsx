@@ -18,7 +18,7 @@ function NoteURLInput({
                 placeholder="Enter the URL"
                 value={noteData.url}
                 onChange={handleNotedataChanges}
-                className="input-field text-sm sm:text-base  border-none ring-1 ring-slate-600 focus:ring-1 focus:ring-green-700 rounded-md py-2 text-zinc-300"
+                className="input-field text-sm sm:text-base  border border-sky-800 focus:outline-none focus:ring-1 focus:ring-sky-500 rounded-md py-2 text-zinc-300"
             />
         </div>
     );

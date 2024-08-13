@@ -20,9 +20,9 @@ function NoteDescription({
                 placeholder="Enter note description"
                 value={noteData.description}
                 onChange={handleNotedataChanges}
-                className="input-field text-xs sm:text-base border-none ring-1 ring-slate-600 focus:ring-1 focus:ring-green-700 rounded-md py-2 text-zinc-300"
+                className="input-field text-xs sm:text-base border border-sky-800 focus:outline-none focus:ring-1 focus:ring-sky-500 rounded-md py-2 text-zinc-300"
             />
-            <span className="absolute text-xs sm:text-base right-4 bottom-4 bg-green-900 py-0.5 px-1 rounded-md">
+            <span className="absolute text-xs sm:text-base right-4 bottom-4 bg-sky-800 py-0.5 px-1 rounded-md">
                 {noteData?.description?.length || 0}/{limit}
             </span>
         </div>

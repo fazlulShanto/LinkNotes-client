@@ -1,15 +1,8 @@
 /* eslint-disable react/jsx-key */
-import { useEffect } from "react";
 import GreetingsCard from "../components/GreetingsCard";
 import NotesCard from "../components/NotesCard";
-
 import { useAppContext, stateActions, Loader } from "../exports";
 import useDashboard from "../hooks/useDashboard";
-import { PlusCircleIcon } from "lucide-react";
-import { HomeIcon } from "lucide-react";
-import { FilterIcon } from "lucide-react";
-import { PinIcon } from "lucide-react";
-import DemoComponent from "../components/DemoComponent";
 
 export default function Dashboard() {
     const { state, dispatch } = useAppContext();

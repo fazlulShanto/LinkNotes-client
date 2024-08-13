@@ -32,7 +32,7 @@ function NoteTypeSelect({
                 name="note-type"
                 value={noteData.type}
                 onChange={handleOnChange}
-                className="select select-sm sm:select-md disabled:bg-slate-900 disabled:text-white font-medium text-sm sm:text-lg focus:outline-none focus:border-green-500 select-md  bg-primary border-neutral text-white"
+                className="select select-sm sm:select-md disabled:bg-slate-900 disabled:text-white font-medium text-sm sm:text-lg focus:outline-none focus:border-sky-500 select-md  bg-primary border-sky-800 text-white"
             >
                 <option value="text">Text</option>
                 <option value="checkList">Check List</option>

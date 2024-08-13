@@ -24,3 +24,15 @@ export const deleteSingleNote = async (noteId) => {
     });
     return data;
 };
+
+export const getUserPinnedNotes = async () => {
+    const { data } = await Axios.get(ApiEndpoints.pinnedNotes());
+    return data;
+};
+
+export const toggleNotePin = async (noteId, pinStatus) => {
+    const { data } = await Axios.get(
+        ApiEndpoints.toggleNotePin(noteId, pinStatus)
+    );
+    return data;
+};

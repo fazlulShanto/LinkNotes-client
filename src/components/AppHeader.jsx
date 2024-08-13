@@ -6,9 +6,15 @@ import { PinIcon } from "lucide-react";
 import { FilterIcon } from "lucide-react";
 import { useState } from "react";
 import CreateNotesModal from "./CreateNoteModal";
-import { validateNoteInput } from "../utils/utilities";
+import { Popover, PopoverContent, PopoverTrigger } from "./Popover";
+import { UserCogIcon } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { signOutService } from "../services/authService";
+import { toast } from "../exports";
 
 export default function AppHeader({ userAvatarUrl }) {
+    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const renderAvatar = () => {
         return (
@@ -33,6 +39,43 @@ export default function AppHeader({ userAvatarUrl }) {
         setIsModalOpen(true);
     };
 
+    const handleSignOut = () => {
+        signOutService()
+            .then((res) => {
+                if (res) {
+                    toast.success(`Successfully signed-out!`);
+                    navigate("/signin");
+                }
+            })
+            .catch((er) => {
+                toast.error("Failed to sign out! please try agian.");
+            });
+    };
+
+    const renderProfilePopOver = () => {
+        return (
+            <Popover>
+                <PopoverTrigger asChild>{renderAvatar()}</PopoverTrigger>
+                <PopoverContent className="bg-slate-800 border-none flex flex-col gap-2 shadow-lg mt-2 mr-2 w-fit text-gray-100">
+                    <button
+                        onClick={() => navigate("/profile")}
+                        className="btn btn-info btn-ghost font-medium hover:text-sky-300"
+                    >
+                        <UserCogIcon />
+                        Edit Profile
+                    </button>
+                    <button
+                        onClick={handleSignOut}
+                        className="btn btn-ghost font-medium hover:text-sky-300 self-baseline"
+                    >
+                        <LogOut />
+                        Sign-Out
+                    </button>
+                </PopoverContent>
+            </Popover>
+        );
+    };
+
     return (
         <div className="bg-primary flex w-full justify-between items-center gap-2 py-4 md:py-4 px-2 rounded-md sm:sticky sm:top-0 sm:z-50">
             <div className="flex">
@@ -46,18 +89,19 @@ export default function AppHeader({ userAvatarUrl }) {
                 <div className="hidden sm:flex sm:gap-2">
                     <button
                         onClick={handleAddNewNotes}
-                        className="btn bg-slate-700"
+                        className="btn  hover:bg-sky-600 text-gray-200 bg-slate-700"
                     >
                         <PlusCircleIcon />
                     </button>
-                    <button className="btn bg-slate-700">
+                    <button className="btn  hover:bg-sky-600 text-gray-200 bg-slate-700">
                         <PinIcon className="rotate-45" />
                     </button>
-                    <button className="btn bg-slate-700">
+                    <button className="btn  hover:bg-sky-600 text-gray-200 bg-slate-700">
                         <FilterIcon />
                     </button>
                 </div>
-                {renderAvatar()}
+                {/* {renderAvatar()} */}
+                {renderProfilePopOver()}
             </div>
             <CreateNotesModal
                 isModalOpen={isModalOpen}

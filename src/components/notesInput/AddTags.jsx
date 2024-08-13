@@ -91,10 +91,10 @@ function AddTags({ noteData, shouldDisable = false, setNoteData }) {
                         }
                     }}
                     onChange={(e) => setTag(e.currentTarget.value)}
-                    className={`input-field h-fit py-2 text-xs sm:text-base border-none ring-1 ring-slate-600 focus:ring-1 focus:ring-green-700 rounded-md sm:py-2 w-full  text-zinc-300 ${shouldDisableTagInput ? "hidden" : "visible"}`}
+                    className={`input-field h-fit py-2 text-xs sm:text-base border border-sky-800 focus:outline-none focus:ring-1 focus:ring-sky-500 rounded-md sm:py-2 w-full  text-zinc-300 ${shouldDisableTagInput ? "hidden" : "visible"}`}
                 />
                 <div
-                    className={`absolute text-xxs sm:text-xs right-[56px] sm:right-32 top-1.5 sm:top-2 bg-green-900 rounded-md px-2 py-1 ${shouldDisableTagInput ? "hidden" : ""}`}
+                    className={`absolute text-xxs sm:text-xs right-[56px] sm:right-[132px] top-1.5 sm:top-2.5 bg-sky-700 rounded-md px-2 py-0.5 ${shouldDisableTagInput ? "hidden" : ""}`}
                 >
                     {tag.length}/{tagsTextLimit.MAX}
                 </div>

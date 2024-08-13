@@ -17,6 +17,10 @@ export const signUpService = async ({
     const response = await Axios.post(ApiEndpoints.singUp(), info);
     return response;
 };
+export const signOutService = async () => {
+    const response = await Axios.get(ApiEndpoints.signOut());
+    return response.status === 200;
+};
 
 export const verifyUser = async () => {
     const {

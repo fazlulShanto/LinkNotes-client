@@ -1,21 +1,23 @@
 import React from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "./Popover";
 import { EllipsisVerticalIcon } from "lucide-react";
-import { deleteSingleNote } from "../services/notesService";
+import { deleteSingleNote, toggleNotePin } from "../services/notesService";
 import { useState } from "react";
 import { toast } from "../exports";
 import { Trash2 } from "lucide-react";
 import { Pin } from "lucide-react";
 import { SquarePen } from "lucide-react";
 import ViewNotesModal from "./ViewNotesModal";
+import { PinOff } from "lucide-react";
 
 function NoteCardPopOverOptions({ noteData }) {
     const [open, setOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+    const [isPinned, setIsPinned] = useState(noteData?.isPinned ?? false);
+
     const handleNoteDelete = () => {
         deleteSingleNote(noteData._id)
             .then((res) => {
-                console.log(res);
                 toast.success(res.dataSource.result.message);
                 setOpen(false);
             })
@@ -23,6 +25,15 @@ function NoteCardPopOverOptions({ noteData }) {
                 toast.error(`Couldn't delete the note.`);
             });
     };
+
+    const handleTogglePin = () => {
+        setIsPinned(!isPinned);
+        toggleNotePin(noteData._id, !isPinned).catch((er) => {
+            toast.error("Failed to toggle!");
+            setIsPinned(!isPinned);
+        });
+    };
+
     return (
         <div className="flex gap-2">
             <button
@@ -31,8 +42,15 @@ function NoteCardPopOverOptions({ noteData }) {
             >
                 View
             </button>
-            <button className="btn btn-xs sm:btn-sm btn-ghost btn-square btn-outline btn-accent">
-                <Pin className="size-4 rotate-45" />
+            <button
+                onClick={handleTogglePin}
+                className="btn btn-xs sm:btn-sm btn-ghost btn-square btn-outline btn-accent"
+            >
+                {isPinned ? (
+                    <PinOff className="size-4" />
+                ) : (
+                    <Pin className="size-4 rotate-45" fill="green" />
+                )}
             </button>
             <Popover open={open}>
                 <PopoverTrigger onClick={() => setOpen(!open)}>

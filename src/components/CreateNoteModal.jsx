@@ -116,7 +116,7 @@ function CreateNotesModal({
             closeOnOverlayClick={false}
             showCloseIcon={false}
             classNames={{
-                modal: "p-3 sm:p-6 rounded-lg max-w-lg w-[90vw] sm:max-w-[800px] bg-slate-950 text-secondary",
+                modal: "p-3  sm:p-6 rounded-lg max-w-lg w-[90vw] sm:max-w-[800px] bg-[#212a45] text-secondary",
             }}
             closeIcon={<XCircle size={24} />}
         >
@@ -162,7 +162,7 @@ function CreateNotesModal({
                     <div className="flex flex-row-reverse w-full gap-4">
                         {buttonText[actionType] ? (
                             <button
-                                className="px-4  rounded-lg btn-success text-zinc-100 bg-emerald-700 disabled:bg-slate-600 disabled:text-slate-300 disabled:cursor-not-allowed"
+                                className="px-4  rounded-lg btn-success text-zinc-100 bg-sky-700 disabled:bg-slate-600 disabled:text-slate-300 disabled:cursor-not-allowed"
                                 onClick={() => onPrimaryAction(noteData)}
                                 disabled={shouldDisable}
                             >

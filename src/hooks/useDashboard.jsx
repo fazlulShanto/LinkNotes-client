@@ -6,10 +6,13 @@ import { toast } from "../exports.jsx";
 export default function useDashboard() {
     const [loading, setLoading] = useState(false);
     const [userNoteList, setUserNoteList] = useState([]);
+    const [pinnedNotes, setPinnedNotes] = useState([]);
+
     useEffect(() => {
         setLoading(true);
         const fetcher = async () => {
             try {
+                // get user notes & pinned notes
                 const data = await getUserAllNotes();
                 setUserNoteList(data?.dataSource?.notes ?? []);
             } catch (error) {
@@ -26,5 +29,7 @@ export default function useDashboard() {
         setLoading,
         userNoteList,
         setUserNoteList,
+        pinnedNotes,
+        setPinnedNotes,
     };
 }

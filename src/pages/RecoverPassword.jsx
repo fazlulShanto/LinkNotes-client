@@ -50,8 +50,8 @@ const RecoverPassword = () => {
             <div className="rounded-xl sm:card-box-shadow w-full sm:w-[400px] h-auto flex flex-col gap-8 py-4 text-center pt-8">
                 <div className="flex flex-col gap-2">
                     <div className="flex justify-center items-center">
-                        <div class="avatar">
-                            <div class="w-16 rounded-full">
+                        <div className="avatar">
+                            <div className="w-16 rounded-full">
                                 <BrandLogo />
                             </div>
                         </div>
