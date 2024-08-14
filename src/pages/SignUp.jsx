@@ -125,9 +125,9 @@ export default function SignUp() {
 
                     <button
                         type="submit"
-                        className="bg-sky-700 w-full px-10 font-semibold h-10 flex justify-center items-center gap-2 rounded-full self-center text-white"
+                        className="bg-sky-700 text-lg w-full px-10 font-semibold h-10 flex justify-center items-center gap-2 rounded-full self-center text-white"
                     >
-                        Sing Up
+                        Sign Up
                     </button>
                 </form>
 

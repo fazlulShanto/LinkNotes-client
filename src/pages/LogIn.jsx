@@ -98,7 +98,7 @@ export default function LogIn() {
                         {showLoader ? (
                             <span className="loading loading-spinner text-primary"></span>
                         ) : null}
-                        <span className="font-medium">Sing In</span>
+                        <span className="font-medium text-lg">Sign In</span>
                     </button>
                 </div>
 

@@ -2,7 +2,7 @@ import { XCircle } from "lucide-react";
 import React from "react";
 import { useState } from "react";
 import Modal from "react-responsive-modal";
-import { randomBadgeClassName } from "../utils/utilities";
+import { cn, randomBadgeClassName } from "../utils/utilities";
 import { CopyIcon } from "lucide-react";
 import { X } from "lucide-react";
 import { toast } from "../exports";
@@ -27,6 +27,25 @@ function ViewNotesModal({ isModalOpen, onClose, noteData = defaultNoteData }) {
         const data = noteData.noteContent?.value ?? "";
         navigator.clipboard.writeText(data);
         toast.success("Copied!");
+    };
+
+    const handleUpdateCheckboxItemStatus = (checkItemId) => {
+        console.log(`✅ note_id=${noteData._id} itemId=${checkItemId}`);
+    };
+
+    const renderCheckbox = ({ isChecked, text, id }) => {
+        return (
+            <label key={id} className="flex items-center gap-2 ">
+                <input
+                    type="checkbox"
+                    id={id}
+                    className="checkbox checkbox-xs [--chkfg:white]  checkbox-success"
+                    onClick={() => handleUpdateCheckboxItemStatus(id)}
+                    defaultChecked={isChecked}
+                />
+                {text}
+            </label>
+        );
     };
     const renderNoteTypeSpecificContent = () => {
         switch (noteData.type) {
@@ -65,7 +84,13 @@ function ViewNotesModal({ isModalOpen, onClose, noteData = defaultNoteData }) {
                 );
             }
             case "checkList": {
-                return <div>{noteData.noteContent.value}</div>;
+                return (
+                    <div className="flex flex-col gap-1.5">
+                        {noteData.noteContent.value.map((data, idx) =>
+                            renderCheckbox(data)
+                        )}
+                    </div>
+                );
             }
             default:
                 return null;
@@ -110,12 +135,12 @@ function ViewNotesModal({ isModalOpen, onClose, noteData = defaultNoteData }) {
                 <X className="text-error border border-error rounded-md size-5" />
             }
             classNames={{
-                modal: "p-3 sm:p-6 rounded-lg  max-h-[80vh] max-w-lg w-[90vw] sm:max-w-[800px] bg-slate-700 text-secondary",
+                modal: "p-3 sm:p-6 rounded-md sm:rounded-lg  max-h-[80vh] max-w-lg w-[90vw] sm:max-w-[800px] bg-slate-700 text-secondary",
             }}
         >
             <div className="flex flex-col gap-2 sm:gap-3">
                 <div id="modal-header">
-                    <h1 className="text-secondary font-medium text-xl">
+                    <h1 className="text-secondary font-medium text-lg">
                         {`View: ${noteData?.noteTitle}`}
                     </h1>
                 </div>
@@ -126,7 +151,7 @@ function ViewNotesModal({ isModalOpen, onClose, noteData = defaultNoteData }) {
                     {renderNoteTypeSpecificContent()}
                 </div>
 
-                <div id="modal-footer" className="flex flex-col gap-2">
+                <div id="modal-footer" className="flex flex-col gap-2 mt-2">
                     {renderNoteTags()}
                 </div>
             </div>

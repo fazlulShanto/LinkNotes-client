@@ -18,6 +18,7 @@ function CreateCheckListNote({
     const [checkboxItemText, setCheckboxItem] = useState("");
     const handleAddNewCheckboxItem = () => {
         const newItem = {
+            id: Math.random().toString(32).slice(2),
             isChecked: false,
             text: checkboxItemText,
         };
@@ -46,10 +47,10 @@ function CreateCheckListNote({
         const checkboxList = noteData?.checkList ?? [];
         return (
             <div className="flex flex-col max-h-28 sm:max-h-28 gap-2 p-1 overflow-y-auto">
-                {checkboxList?.map((v, idx) => {
+                {checkboxList?.map((v) => {
                     return (
                         <div
-                            key={v + idx}
+                            key={v.id}
                             className="text-sm flex justify-between items-center max-h-8 p-1 bg-slate-800 leading-5 rounded-md px-2"
                         >
                             <span>{v?.text ?? null}</span>

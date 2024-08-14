@@ -3,13 +3,11 @@ import { useState } from "react";
 import NoteCardPopOverOptions from "../NoteCardPopOverOptions";
 import { ListChecks } from "lucide-react";
 
+const MAX_CHECKBOX_ITEM_IN_CARD = 5;
+
 export default function CheckBoxListNotes({ notesData }) {
     const [checkboxList, setCheckboxList] = useState(
-        notesData?.noteContent?.value.map((v) => ({
-            isChecked: v.isChecked,
-            text: v.text,
-            id: Math.random().toString(30).slice(2),
-        }))
+        notesData?.noteContent?.value
     );
 
     const renderCheckbox = ({ isChecked, text, id }) => {
@@ -20,6 +18,10 @@ export default function CheckBoxListNotes({ notesData }) {
                     id={id}
                     className="checkbox checkbox-xs [--chkfg:white]  checkbox-success"
                     defaultChecked={isChecked}
+                    disabled
+                    style={{
+                        opacity: 1,
+                    }}
                 />
                 <label htmlFor={id}> {text} </label>
             </div>
@@ -38,7 +40,11 @@ export default function CheckBoxListNotes({ notesData }) {
                 </div>
                 <NoteCardPopOverOptions noteData={notesData} />
             </div>
-            <div>{checkboxList.map((data) => renderCheckbox(data))}</div>
+            <div>
+                {checkboxList
+                    .slice(0, MAX_CHECKBOX_ITEM_IN_CARD)
+                    .map((data) => renderCheckbox(data))}
+            </div>
         </div>
     );
 }
