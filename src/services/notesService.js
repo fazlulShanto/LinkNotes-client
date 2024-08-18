@@ -31,8 +31,15 @@ export const getUserPinnedNotes = async () => {
 };
 
 export const toggleNotePin = async (noteId, pinStatus) => {
-    const { data } = await Axios.get(
+    const { data } = await Axios.patch(
         ApiEndpoints.toggleNotePin(noteId, pinStatus)
+    );
+    return data;
+};
+
+export const toggleSingleCheckItem = async (noteId, itemId, isChecked) => {
+    const { data } = await Axios.patch(
+        ApiEndpoints.toggleCheckItem(noteId, itemId, isChecked)
     );
     return data;
 };

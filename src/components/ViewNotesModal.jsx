@@ -6,6 +6,7 @@ import { cn, randomBadgeClassName } from "../utils/utilities";
 import { CopyIcon } from "lucide-react";
 import { X } from "lucide-react";
 import { toast } from "../exports";
+import { toggleSingleCheckItem } from "../services/notesService";
 const defaultNoteData = {
     _id: "66b63f7420df28050f158351",
     user: null,
@@ -29,8 +30,11 @@ function ViewNotesModal({ isModalOpen, onClose, noteData = defaultNoteData }) {
         toast.success("Copied!");
     };
 
-    const handleUpdateCheckboxItemStatus = (checkItemId) => {
-        console.log(`✅ note_id=${noteData._id} itemId=${checkItemId}`);
+    const handleUpdateCheckboxItemStatus = (checkItemId, isChecked) => {
+        console.log(
+            `✅ note_id=${noteData._id} itemId=${checkItemId} status= ${isChecked}`
+        );
+        toggleSingleCheckItem(noteData._id, checkItemId, isChecked);
     };
 
     const renderCheckbox = ({ isChecked, text, id }) => {
@@ -40,7 +44,9 @@ function ViewNotesModal({ isModalOpen, onClose, noteData = defaultNoteData }) {
                     type="checkbox"
                     id={id}
                     className="checkbox checkbox-xs [--chkfg:white]  checkbox-success"
-                    onClick={() => handleUpdateCheckboxItemStatus(id)}
+                    onClick={() =>
+                        handleUpdateCheckboxItemStatus(id, isChecked)
+                    }
                     defaultChecked={isChecked}
                 />
                 {text}

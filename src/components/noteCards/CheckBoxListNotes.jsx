@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import NoteCardPopOverOptions from "../NoteCardPopOverOptions";
 import { ListChecks } from "lucide-react";
+import { CircleCheck } from "lucide-react";
+import { CircleX } from "lucide-react";
 
 const MAX_CHECKBOX_ITEM_IN_CARD = 5;
 
@@ -13,7 +15,7 @@ export default function CheckBoxListNotes({ notesData }) {
     const renderCheckbox = ({ isChecked, text, id }) => {
         return (
             <div key={id} className="flex items-center gap-2">
-                <input
+                {/* <input
                     type="checkbox"
                     id={id}
                     className="checkbox checkbox-xs [--chkfg:white]  checkbox-success"
@@ -22,7 +24,12 @@ export default function CheckBoxListNotes({ notesData }) {
                     style={{
                         opacity: 1,
                     }}
-                />
+                /> */}
+                {isChecked ? (
+                    <CircleCheck className="size-4 text-emerald-500" />
+                ) : (
+                    <CircleX className="size-4 text-rose-500" />
+                )}
                 <label htmlFor={id}> {text} </label>
             </div>
         );

@@ -47,9 +47,9 @@ function NoteCardPopOverOptions({ noteData }) {
                 className="btn btn-xs sm:btn-sm btn-ghost btn-square btn-outline btn-accent"
             >
                 {isPinned ? (
-                    <PinOff className="size-4" />
-                ) : (
                     <Pin className="size-4 rotate-45" fill="green" />
+                ) : (
+                    <PinOff className="size-4" />
                 )}
             </button>
             <Popover open={open}>

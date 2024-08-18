@@ -47,7 +47,7 @@ export default function AppShell() {
             {/* <div className="sticky bg-inherit z-20 top-0">
                 <AppHeader userAvatarUrl={state.userInfo.avatarUrl} />
             </div> */}
-            <div className="h-full  sm:px-4  overflow-y-auto">
+            <div className="h-full sm:flex sm:flex-col sm:px-4  overflow-y-auto">
                 <AppHeader userAvatarUrl={state.userInfo.avatarUrl} />
                 <Outlet />
             </div>

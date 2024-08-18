@@ -12,6 +12,8 @@ const ApiEndpoints = {
     pinnedNotes: () => `${baseUrl}/api/notes/pinned-notes`,
     toggleNotePin: (noteId, isPinned) =>
         `${baseUrl}/api/notes/toggle-pin?noteId=${noteId}&isPinned=${isPinned}`,
+    toggleCheckItem: (noteId, itemId, isChecked) =>
+        `${baseUrl}/api/notes/toggle-checkbox-item?noteId=${noteId}&itemId=${itemId}&isChecked=${isChecked}`,
 };
 
 export default ApiEndpoints;
