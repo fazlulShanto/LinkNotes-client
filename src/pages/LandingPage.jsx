@@ -1,71 +1,119 @@
 import { useState } from "react";
+import AppLogo from "../assets/appLogoWithoutBG.png";
+import { appName } from "../utils/Contents";
+import LandingAnimations from "../assets/landing-animation.webm";
+import { NotebookPen } from "lucide-react";
+import { Tag } from "lucide-react";
+import { Pin } from "lucide-react";
+import { SearchCheck } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Modal } from "react-responsive-modal";
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "../components/Sheet";
+
 export default function LandingPage() {
-    const [open, setOpen] = useState(false);
-
-    const onOpenModal = () => setOpen(true);
-    const onCloseModal = () => setOpen(false);
-
     return (
-        <div className="w-screen relative bg-[#0f172a] h-screen flex flex-col gap-6 items-center p-6 sm:mx-auto">
-            <h1 className="text-3xl font-bold  text-gray-300">
-                Welcome to LinkNotes
-            </h1>
-            <div className="  bg-[#1e293b] text-center h-fit w-full sm:max-w-lg flex flex-col rounded-md gap-4 py-10">
-                <h1>Sign In</h1>
-                <p className="text-sm text-center text-white">
-                    A simple note taking app
-                </p>
+        <div className="w-screen h-screen relative bg-primary flex flex-col gap-6">
+            <header className="flex flex-col items-center pt-6 sm:pt-12 text-gray-100 leading-5 gap-4 sm:gap-1">
+                <div className="font-medium text-2xl sm:text-4xl">
+                    Welcome to
+                </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
-                    <Link
-                        className="px-12 py-4 rounded-md bg-indigo-700"
-                        to="/signin"
+                <div className="flex sm:flex-col items-center sm:gap-2 sm:mt-2">
+                    <div className=" mr-1">
+                        <img className="w-12 sm:w-20" src={AppLogo} />
+                    </div>
+                    <span className="font-bold text-4xl sm:text-6xl">
+                        {appName}
+                    </span>
+                </div>
+                <p className="italic text-sm sm:text-base">
+                    Notes, Checklists, and Bookmarks - Your Way!
+                </p>
+            </header>
+            <main className="flex h-full sm:h-auto flex-col sm:flex-row gap-8">
+                <section className="sm:w-1/2">
+                    <video
+                        id="coin-video"
+                        playsInline
+                        muted
+                        autoPlay
+                        loop
+                        preload="metadata"
+                        className="w-1/2 m-auto md:p-4 md:max-w-[360px] max-h-[360px] md:max-h-full md:pb-4 pb-25 mt-4"
+                    >
+                        <source
+                            id="video-source"
+                            src={LandingAnimations}
+                            type="video/webm"
+                        />
+                        Your browser does not support the video tag.
+                    </video>
+                </section>
+
+                <section
+                    id="features"
+                    className="grid grid-cols-2 gap-2 sm:gap-8 px-3"
+                >
+                    <div className="bg-[#FDF777] text-black rounded-lg p-3 sm:p-10 sm:h-fit">
+                        <div className="w-full space-y-3">
+                            <p className="text-md flex gap-1 font-bold justify-center">
+                                <NotebookPen /> <span>Note It</span>
+                            </p>
+                            <p className="text-center">
+                                Create 3 types of notes.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="bg-[#23D2B1] text-black rounded-lg p-3  sm:p-10 sm:h-fit">
+                        <div className="w-full space-y-3">
+                            <p className="text-md flex gap-1 font-bold justify-center">
+                                <Tag /> <span>Tag It</span>
+                            </p>
+                            <p className="text-center">
+                                Add up to 10 tags to each note.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="bg-[#D7F8F2] text-black rounded-lg p-3  sm:p-10 sm:h-fit">
+                        <div className="w-full space-y-3">
+                            <p className="text-md flex gap-1 font-bold justify-center">
+                                <Pin className="rotate-45" />{" "}
+                                <span>Pin It</span>
+                            </p>
+                            <p className="text-center">
+                                Pin your important notes.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="bg-[#EB7A52] text-black rounded-lg p-3  sm:p-10 sm:h-fit">
+                        <div className="w-full space-y-3">
+                            <p className="text-md flex gap-1 font-bold justify-center">
+                                <SearchCheck /> <span>Find It</span>
+                            </p>
+                            <p className="text-center">Find you notes fast.</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <footer
+                id="cta"
+                className="flex w-full justify-around sm:justify-center sm:gap-24 mb-8 sm:mt-8"
+            >
+                <Link to={"/signin"}>
+                    <button
+                        type="button"
+                        className="btn btn-primary px-12 btn-outline sm:btn-wide sm:btn-lg"
                     >
                         Sign In
-                    </Link>
-                    <Link
-                        to="/signup"
-                        className="px-12 py-4 rounded-md bg-indigo-700"
+                    </button>
+                </Link>
+                <Link to={"/signup"}>
+                    <button
+                        type="button"
+                        className="btn btn-primary px-12 border-none bg-[#0369A1] hover:bg-[#0369A1] text-white sm:btn-wide sm:btn-lg"
                     >
                         Sign Up
-                    </Link>
-                </div>
-            </div>
-            <div>
-                <button onClick={onOpenModal}>Open modal</button>
-                <Modal open={open} onClose={onCloseModal} center>
-                    <h2>Simple centered modal</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam pulvinar risus non risus hendrerit venenatis.
-                        Pellentesque sit amet hendrerit risus, sed porttitor
-                        quam.
-                    </p>
-                </Modal>
-            </div>
-            <Sheet>
-                <SheetTrigger>Open</SheetTrigger>
-                <SheetContent>
-                    <SheetHeader>
-                        <SheetTitle>Are you absolutely sure?</SheetTitle>
-                        <SheetDescription>
-                            This action cannot be undone. This will permanently
-                            delete your account and remove your data from our
-                            servers.
-                        </SheetDescription>
-                    </SheetHeader>
-                </SheetContent>
-            </Sheet>
+                    </button>
+                </Link>
+            </footer>
         </div>
     );
 }

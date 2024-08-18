@@ -78,7 +78,7 @@ export default function AppHeader({ userAvatarUrl }) {
 
     return (
         <div className="bg-primary flex w-full justify-between items-center gap-2 py-4 md:py-4 px-2 rounded-md sm:sticky sm:top-0 sm:z-50">
-            <div className="flex">
+            <div className="flex items-center">
                 {renderAppLogo()}
                 <h1 className="text-xl sm:text-2xl font-bold text-gray-100">
                     {appName}
