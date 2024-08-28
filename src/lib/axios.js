@@ -4,7 +4,7 @@ const env = import.meta.env.MODE;
 
 export const remoteBaseUrl = `http://135.181.141.62:4004`;
 
-export const remoteRenderUrl = `/apiredirect`;
+export const remoteRenderUrl = `https://linknotes-server.onrender.com`;
 
 export const baseUrl =
     env === "production" ? remoteRenderUrl : `http://localhost:4567`;
