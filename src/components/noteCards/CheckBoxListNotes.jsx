@@ -8,29 +8,17 @@ import { CircleX } from "lucide-react";
 const MAX_CHECKBOX_ITEM_IN_CARD = 5;
 
 export default function CheckBoxListNotes({ notesData }) {
-    const [checkboxList, setCheckboxList] = useState(
-        notesData?.noteContent?.value
-    );
+    const checkboxList = notesData?.noteContent?.value;
 
     const renderCheckbox = ({ isChecked, text, id }) => {
         return (
-            <div key={id} className="flex items-center gap-2">
-                {/* <input
-                    type="checkbox"
-                    id={id}
-                    className="checkbox checkbox-xs [--chkfg:white]  checkbox-success"
-                    defaultChecked={isChecked}
-                    disabled
-                    style={{
-                        opacity: 1,
-                    }}
-                /> */}
+            <div key={id + isChecked} className="flex items-center gap-2">
                 {isChecked ? (
                     <CircleCheck className="size-4 text-emerald-500" />
                 ) : (
                     <CircleX className="size-4 text-rose-500" />
                 )}
-                <label htmlFor={id}> {text} </label>
+                <p>{text} </p>
             </div>
         );
     };

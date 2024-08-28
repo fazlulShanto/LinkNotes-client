@@ -9,19 +9,24 @@ import { Pin } from "lucide-react";
 import { SquarePen } from "lucide-react";
 import ViewNotesModal from "./ViewNotesModal";
 import { PinOff } from "lucide-react";
+import useStore from "../utils/store";
+import CreateNotesModal from "./CreateNoteModal";
 
 function NoteCardPopOverOptions({ noteData }) {
+    const removeNote = useStore.use.removeANote();
     const [open, setOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isPinned, setIsPinned] = useState(noteData?.isPinned ?? false);
 
     const handleNoteDelete = () => {
-        deleteSingleNote(noteData._id)
+        removeNote(noteData._id)
             .then((res) => {
-                toast.success(res.dataSource.result.message);
+                toast.success(res);
                 setOpen(false);
             })
             .catch((er) => {
+                console.log(er);
                 toast.error(`Couldn't delete the note.`);
             });
     };
@@ -63,7 +68,10 @@ function NoteCardPopOverOptions({ noteData }) {
                         setOpen(false);
                     }}
                 >
-                    <button className="hover:text-accent text-left w-full">
+                    <button
+                        onClick={() => setIsEditModalOpen((o) => !o)}
+                        className="hover:text-accent text-left w-full"
+                    >
                         Edit
                     </button>
                     <button
@@ -74,11 +82,22 @@ function NoteCardPopOverOptions({ noteData }) {
                     </button>
                 </PopoverContent>
             </Popover>
-            <ViewNotesModal
-                isModalOpen={isViewModalOpen}
-                onClose={() => setIsViewModalOpen(false)}
-                noteData={noteData}
-            />
+            {isViewModalOpen ? (
+                <ViewNotesModal
+                    isModalOpen={isViewModalOpen}
+                    onClose={() => setIsViewModalOpen(false)}
+                    noteData={noteData}
+                />
+            ) : null}
+            {isEditModalOpen ? (
+                <CreateNotesModal
+                    isModalOpen={isEditModalOpen}
+                    onClose={() => setIsEditModalOpen(false)}
+                    modalHeader={`Edit Note: ${noteData?.noteTitle}`}
+                    actionType="EDIT"
+                    data={noteData}
+                />
+            ) : null}
         </div>
     );
 }

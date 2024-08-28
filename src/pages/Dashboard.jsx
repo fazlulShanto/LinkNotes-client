@@ -1,12 +1,20 @@
 /* eslint-disable react/jsx-key */
+import { useEffect } from "react";
 import GreetingsCard from "../components/GreetingsCard";
 import NotesCard from "../components/NotesCard";
-import { useAppContext, stateActions, Loader } from "../exports";
-import useDashboard from "../hooks/useDashboard";
+import { useAppContext, Loader } from "../exports";
+import useStore from "../utils/store";
 
 export default function Dashboard() {
     const { state, dispatch } = useAppContext();
-    const { userNoteList, loading } = useDashboard();
+    const fetchUserNoteList = useStore.use.fetchUserNoteList();
+    const userNoteList = useStore.use.noteList();
+    const loading = useStore.use.isLoading();
+
+    useEffect(() => {
+        fetchUserNoteList();
+    }, []);
+
     if (loading) {
         return (
             <div className="w-full flex flex-col h-full justify-center items-center">
@@ -14,13 +22,13 @@ export default function Dashboard() {
             </div>
         );
     }
+
     return (
         <div className="w-full sm:h-full sm:overflow-y-scroll p-2 flex flex-col gap-2">
             <div className="flex w-full flex-col justify-between sm:flex-row gap-2">
                 <GreetingsCard userInfo={state.userInfo} />
             </div>
 
-            {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 columns-4 w-full gap-2"> */}
             <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 w-full space-y-3 gap-3">
                 {userNoteList.map((data, idx) => (
                     <div key={idx + data.noteTitle}>

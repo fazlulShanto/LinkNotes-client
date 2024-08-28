@@ -11,7 +11,8 @@ import CreateCheckListNote from "./notesInput/CreateCheckListNote";
 import InputBoxWithLimit from "./InputBoxWithLimit";
 import { validateNoteInput } from "../utils/utilities";
 import { toast } from "../exports";
-import { createNewNote } from "../services/notesService";
+import useStore from "../utils/store";
+import { useEffect } from "react";
 
 const buttonText = {
     CREATE: "Create Note",
@@ -37,10 +38,12 @@ function CreateNotesModal({
 }) {
     const shouldDisable = actionType === "VIEW";
     const isModalActionView = actionType === "VIEW";
+    const isModalActionEdit = actionType === "EDIT";
     const [noteData, setNoteData] = useState(
-        isModalActionView ? data : defaultNoteData
+        isModalActionView || isModalActionEdit ? data : defaultNoteData
     );
-
+    const addNewNote = useStore.use.addNewNote();
+    const updateSingleNote = useStore.use.updateSingleNote();
     const handleNotedataChanges = (e) => {
         const value = e.currentTarget.value;
         const name = e.currentTarget.name.split("-").pop();
@@ -52,17 +55,27 @@ function CreateNotesModal({
 
     const onPrimaryAction = (noteData) => {
         const result = validateNoteInput(noteData);
+        const actionFunc = isModalActionEdit ? updateSingleNote : addNewNote;
+        if (isModalActionEdit) {
+            result._id = data._id;
+        }
+        const toastMessage = isModalActionEdit
+            ? `Note updated successfully.`
+            : `New note successfully added.`;
 
         if (!result) {
             toast.error("Please fill all the note data!");
             return;
         }
-        createNewNote(result)
+
+        actionFunc(result)
             .then((res) => {
                 onClose();
-                toast.success(`New note successfully added.`);
+                setNoteData(defaultNoteData);
+                toast.success(toastMessage);
             })
             .catch((er) => {
+                console.log(er);
                 toast.error(`Failed to create new note!.`);
             });
     };
@@ -104,10 +117,26 @@ function CreateNotesModal({
         }
     };
 
+    useEffect(() => {
+        if (isModalActionEdit) {
+            const editData = {
+                _id: data?._id,
+                type: data.type || "text",
+                title: data.noteTitle || "",
+                description:
+                    data.type === "text" ? data.noteContent?.value : "",
+                url: data.type === "url" ? data.noteContent?.value : "",
+                shortDescription: "",
+                checkList: data.noteContent?.value || [],
+                tags: data.tags || [data?.type.toLowerCase()],
+            };
+            setNoteData(editData);
+        }
+    }, [actionType]);
+
     if (isModalActionView) {
         return <ViewNotesModal />;
     }
-
     return (
         <Modal
             center={true}

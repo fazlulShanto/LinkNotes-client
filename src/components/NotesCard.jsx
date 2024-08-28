@@ -7,6 +7,7 @@ import React from "react";
 
 export default function NotesCard({ notesData }) {
     const noteType = notesData.type;
+
     const renderNoteUi = () => {
         switch (noteType) {
             case "text":

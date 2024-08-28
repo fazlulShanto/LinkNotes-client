@@ -21,7 +21,6 @@ export default function SignUp() {
             password: formData.get("password"),
         };
         setShowLoader(true);
-        console.log(`✅`, data);
 
         signUpService(data)
             .then((data) => {

@@ -10,6 +10,7 @@ const ApiEndpoints = {
     createANewNotes: () => `${baseUrl}/api/notes`,
     deleteNotes: () => `${baseUrl}/api/notes`,
     pinnedNotes: () => `${baseUrl}/api/notes/pinned-notes`,
+    updateNote: (noteId) => `${baseUrl}/api/notes/${noteId}`,
     toggleNotePin: (noteId, isPinned) =>
         `${baseUrl}/api/notes/toggle-pin?noteId=${noteId}&isPinned=${isPinned}`,
     toggleCheckItem: (noteId, itemId, isChecked) =>

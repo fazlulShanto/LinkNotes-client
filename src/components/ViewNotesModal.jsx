@@ -7,6 +7,7 @@ import { CopyIcon } from "lucide-react";
 import { X } from "lucide-react";
 import { toast } from "../exports";
 import { toggleSingleCheckItem } from "../services/notesService";
+import useStore from "../utils/store";
 const defaultNoteData = {
     _id: "66b63f7420df28050f158351",
     user: null,
@@ -24,6 +25,7 @@ const defaultNoteData = {
 function ViewNotesModal({ isModalOpen, onClose, noteData = defaultNoteData }) {
     const noteType = noteData.type;
     const tags = noteData.tags;
+    const updateCheckboxItemStatus = useStore.use.updateCheckboxItemStatus();
     const handleCopyButtonClick = () => {
         const data = noteData.noteContent?.value ?? "";
         navigator.clipboard.writeText(data);
@@ -31,10 +33,7 @@ function ViewNotesModal({ isModalOpen, onClose, noteData = defaultNoteData }) {
     };
 
     const handleUpdateCheckboxItemStatus = (checkItemId, isChecked) => {
-        console.log(
-            `✅ note_id=${noteData._id} itemId=${checkItemId} status= ${isChecked}`
-        );
-        toggleSingleCheckItem(noteData._id, checkItemId, isChecked);
+        updateCheckboxItemStatus(noteData, checkItemId, isChecked);
     };
 
     const renderCheckbox = ({ isChecked, text, id }) => {

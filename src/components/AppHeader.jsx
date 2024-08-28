@@ -11,17 +11,32 @@ import { UserCogIcon } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { signOutService } from "../services/authService";
-import { toast } from "../exports";
+import { toast, useAppContext } from "../exports";
+import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "./Sheet";
+import AppSidebar from "./AppSidebar";
 
 export default function AppHeader({ userAvatarUrl }) {
     const navigate = useNavigate();
+    const { state } = useAppContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const renderAvatar = () => {
         return (
             <button>
                 <div className="avatar mr-1">
                     <div className="ring-primary ring-offset-accent-100 size-8 md:size-10 rounded-full ring ring-offset-2">
-                        <img src={userAvatarUrl || defaultUser} />
+                        <img
+                            alt="user-avatar"
+                            src={userAvatarUrl || defaultUser}
+                        />
                     </div>
                 </div>
             </button>
@@ -30,50 +45,17 @@ export default function AppHeader({ userAvatarUrl }) {
     const renderAppLogo = () => {
         return (
             <div className=" mr-1">
-                <img className="w-[36px] sm:w-10" src={AppLogo} />
+                <img
+                    className="w-[36px] sm:w-10"
+                    alt="app logo"
+                    src={AppLogo}
+                />
             </div>
         );
     };
 
     const handleAddNewNotes = () => {
         setIsModalOpen(true);
-    };
-
-    const handleSignOut = () => {
-        signOutService()
-            .then((res) => {
-                if (res) {
-                    toast.success(`Successfully signed-out!`);
-                    navigate("/signin");
-                }
-            })
-            .catch((er) => {
-                toast.error("Failed to sign out! please try agian.");
-            });
-    };
-
-    const renderProfilePopOver = () => {
-        return (
-            <Popover>
-                <PopoverTrigger asChild>{renderAvatar()}</PopoverTrigger>
-                <PopoverContent className="bg-slate-800 border-none flex flex-col gap-2 shadow-lg mt-2 mr-2 w-fit text-gray-100">
-                    <button
-                        onClick={() => navigate("/profile")}
-                        className="btn btn-info btn-ghost font-medium hover:text-sky-300"
-                    >
-                        <UserCogIcon />
-                        Edit Profile
-                    </button>
-                    <button
-                        onClick={handleSignOut}
-                        className="btn btn-ghost font-medium hover:text-sky-300 self-baseline"
-                    >
-                        <LogOut />
-                        Sign-Out
-                    </button>
-                </PopoverContent>
-            </Popover>
-        );
     };
 
     return (
@@ -101,14 +83,17 @@ export default function AppHeader({ userAvatarUrl }) {
                     </button>
                 </div>
                 {/* {renderAvatar()} */}
-                {renderProfilePopOver()}
+                {/* {renderProfilePopOver()} */}
+                <AppSidebar />
             </div>
-            <CreateNotesModal
-                isModalOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                modalHeader={"Create a new note"}
-                actionType="CREATE"
-            />
+            {isModalOpen ? (
+                <CreateNotesModal
+                    isModalOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    modalHeader={"Create a new note"}
+                    actionType="CREATE"
+                />
+            ) : null}
         </div>
     );
 }
