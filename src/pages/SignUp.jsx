@@ -25,7 +25,7 @@ export default function SignUp() {
         signUpService(data)
             .then((data) => {
                 toast.success("Successfully created new account!");
-                navigator("/signin");
+                navigator("/sign-in");
                 setShowLoader(false);
             })
             .catch((err) => {

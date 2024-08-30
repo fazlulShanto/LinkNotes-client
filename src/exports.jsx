@@ -14,7 +14,7 @@ import Loader from "./components/loader/index.jsx";
 import { useNavigate } from "react-router-dom";
 import { stateActions, useAppContext } from "./hooks/useAppContext.jsx";
 import { cn } from "./utils/utilities.js";
-
+const toaster = toast;
 export {
     cn,
     Axios,
@@ -25,6 +25,7 @@ export {
     baseUrl,
     ApiEndpoints,
     toast,
+    toaster,
     useNavigate,
     Loader,
     verifyUser,

@@ -14,6 +14,7 @@ import { PinIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import CreateNotesModal from "./CreateNoteModal";
+import FilterSidebar from "./filter-sidebar";
 
 export default function AppShell() {
     // check if user authenticated
@@ -35,7 +36,7 @@ export default function AppShell() {
                 });
             } catch (error) {
                 // if failed logout user
-                navigator("/signin");
+                navigator("/sign-in");
             }
         };
         checker();
@@ -44,14 +45,10 @@ export default function AppShell() {
     const bottomMenuIconSize = 28;
     return (
         <div className="flex flex-col gap-2 w-full h-screen bg-primary">
-            {/* <div className="sticky bg-inherit z-20 top-0">
-                <AppHeader userAvatarUrl={state.userInfo.avatarUrl} />
-            </div> */}
             <div className="h-full sm:flex sm:flex-col sm:px-4  overflow-y-auto">
                 <AppHeader userAvatarUrl={state.userInfo.avatarUrl} />
                 <Outlet />
             </div>
-            {/* <div> */}
             <div className="sticky sm:hidden bottom-0 h-fit w-full bg-primary flex justify-between p-3">
                 <Link to={"dashboard"}>
                     <HomeIcon className="" size={bottomMenuIconSize} />
@@ -59,12 +56,13 @@ export default function AppShell() {
                 <button className="" onClick={() => setIsModalOpen(true)}>
                     <PlusCircleIcon className="" size={bottomMenuIconSize} />
                 </button>
-                <Link to={"pinned-notes"}>
+                <Link to={"/pinned-notes"}>
                     <PinIcon className="rotate-45" size={bottomMenuIconSize} />
                 </Link>
-                <button className="">
+                {/* <button className="">
                     <FilterIcon className="" size={bottomMenuIconSize} />
-                </button>
+                </button> */}
+                <FilterSidebar isMobile />
             </div>
             {isModalOpen ? (
                 <CreateNotesModal

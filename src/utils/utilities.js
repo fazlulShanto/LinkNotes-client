@@ -97,6 +97,37 @@ export const randomBadgeClassName = () => {
     const randomIndex = Math.floor(Math.random() * classList.length);
     return classList[randomIndex];
 };
+export const buildFilterUrl = (filterState, basePath = "/dashboard") => {
+    // Remove any undefined or null values from the filterState
+    const cleanFilterState = Object.entries(filterState).reduce(
+        (acc, [key, value]) => {
+            if (value !== undefined && value !== null && value !== "") {
+                acc[key] = value;
+            }
+            return acc;
+        },
+        {}
+    );
+
+    // Convert the filter state to a query string
+    const queryParams = Object.entries(cleanFilterState)
+        .map(([key, value]) => {
+            if (Array.isArray(value)) {
+                // Handle arrays
+                return value
+                    .map(
+                        (v) =>
+                            `${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`
+                    )
+                    .join("&");
+            }
+            return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+        })
+        .join("&");
+
+    // Construct the full URL
+    return `${basePath}${queryParams ? `?${queryParams}` : ""}`;
+};
 
 /*
 {

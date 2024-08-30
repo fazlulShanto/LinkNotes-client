@@ -4,9 +4,12 @@ import GreetingsCard from "../components/GreetingsCard";
 import NotesCard from "../components/NotesCard";
 import { useAppContext, Loader } from "../exports";
 import useStore from "../utils/store";
+import { useLocation } from "react-router-dom";
 
 export default function Dashboard() {
     const { state, dispatch } = useAppContext();
+    const location = useLocation();
+    console.log("🔥", location);
     const fetchUserNoteList = useStore.use.fetchUserNoteList();
     const userNoteList = useStore.use.noteList();
     const loading = useStore.use.isLoading();

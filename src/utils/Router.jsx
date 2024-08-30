@@ -3,17 +3,18 @@ import { Dashboard, SignUP, Login, Loader } from "../exports";
 import AppShell from "../components/AppShell";
 import LandingPage from "../pages/LandingPage";
 import RecoverPassword from "../pages/RecoverPassword";
+import PinnedNotes from "../pages/PinnedNotes";
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <LandingPage />,
     },
     {
-        path: "/signup",
+        path: "/sign-up",
         element: <SignUP />,
     },
     {
-        path: "/signin",
+        path: "/sign-in",
         element: <Login />,
     },
     {
@@ -27,6 +28,16 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard",
                 element: <Dashboard />,
+            },
+        ],
+    },
+    {
+        path: "/",
+        element: <AppShell />,
+        children: [
+            {
+                path: "/pinned-notes",
+                element: <PinnedNotes />,
             },
         ],
     },

@@ -42,7 +42,9 @@ function AppSidebar() {
     };
     return (
         <Sheet className="">
-            <SheetTrigger asChild>{renderAvatar()}</SheetTrigger>
+            <SheetTrigger asChild className="cursor-pointer">
+                {renderAvatar()}
+            </SheetTrigger>
 
             <SheetContent className="bg-slate-800 border-none flex flex-col gap-2 shadow-lg w-2/3 sm:w-1/2  text-gray-200">
                 <SheetHeader>

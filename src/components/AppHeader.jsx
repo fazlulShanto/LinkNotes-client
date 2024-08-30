@@ -23,6 +23,9 @@ import {
     SheetTrigger,
 } from "./Sheet";
 import AppSidebar from "./AppSidebar";
+import { Link } from "react-router-dom";
+import { HomeIcon } from "lucide-react";
+import FilterSidebar from "./filter-sidebar";
 
 export default function AppHeader({ userAvatarUrl }) {
     const navigate = useNavigate();
@@ -66,21 +69,31 @@ export default function AppHeader({ userAvatarUrl }) {
                     {appName}
                 </h1>
             </div>
-
+            {/* Desktop view header buttons */}
             <div className="flex flex-grow  justify-end gap-4 items-center">
                 <div className="hidden sm:flex sm:gap-2">
+                    <Link
+                        className="btn hover:bg-sky-600 text-gray-200 bg-slate-700"
+                        to={"dashboard"}
+                    >
+                        <HomeIcon className="" size={24} />
+                        <span>Home</span>
+                    </Link>
+                    <button
+                        onClick={() => navigate("/pinned-notes")}
+                        className="btn  hover:bg-sky-600 text-gray-200 bg-slate-700"
+                    >
+                        <PinIcon className="rotate-45" />
+                        <span>Pinned notes</span>
+                    </button>
                     <button
                         onClick={handleAddNewNotes}
                         className="btn  hover:bg-sky-600 text-gray-200 bg-slate-700"
                     >
                         <PlusCircleIcon />
+                        <span>New note</span>
                     </button>
-                    <button className="btn  hover:bg-sky-600 text-gray-200 bg-slate-700">
-                        <PinIcon className="rotate-45" />
-                    </button>
-                    <button className="btn  hover:bg-sky-600 text-gray-200 bg-slate-700">
-                        <FilterIcon />
-                    </button>
+                    <FilterSidebar />
                 </div>
                 {/* {renderAvatar()} */}
                 {/* {renderProfilePopOver()} */}

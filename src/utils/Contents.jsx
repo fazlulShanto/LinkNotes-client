@@ -8,3 +8,4 @@ export const TAGS_TEXT_CHAR_LIMIT = {
     MAX: 24,
     MIN: 3,
 };
+export const NOTE_TYPES = ["text", "checkList", "url"];

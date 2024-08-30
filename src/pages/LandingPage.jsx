@@ -97,7 +97,7 @@ export default function LandingPage() {
                 id="cta"
                 className="flex w-full justify-around sm:justify-center sm:gap-24 mb-8 sm:mt-8"
             >
-                <Link to={"/signin"}>
+                <Link to={"/sign-in"}>
                     <button
                         type="button"
                         className="btn btn-primary px-12 btn-outline sm:btn-wide sm:btn-lg"
@@ -105,7 +105,7 @@ export default function LandingPage() {
                         Sign In
                     </button>
                 </Link>
-                <Link to={"/signup"}>
+                <Link to={"/sign-up"}>
                     <button
                         type="button"
                         className="btn btn-primary px-12 border-none bg-[#0369A1] hover:bg-[#0369A1] text-white sm:btn-wide sm:btn-lg"
