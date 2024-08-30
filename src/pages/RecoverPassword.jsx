@@ -91,7 +91,7 @@ const RecoverPassword = () => {
                     <span className="text-gray-400">
                         {"Don't have an account? "}
                     </span>
-                    <Link to={"/signup"} className="w-full text-sky-400">
+                    <Link to={"/sign-up"} className="w-full text-sky-400">
                         Sign Up
                     </Link>
                 </p>

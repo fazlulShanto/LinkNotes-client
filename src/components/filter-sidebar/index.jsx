@@ -1,7 +1,6 @@
 import React from "react";
 import {
     Sheet,
-    SheetClose,
     SheetContent,
     SheetDescription,
     SheetFooter,
@@ -10,22 +9,18 @@ import {
     SheetTrigger,
 } from "../Sheet.jsx";
 
-import {
-    useAppContext,
-    useNavigate,
-    toast,
-    cn,
-    toaster,
-} from "../../exports.jsx";
+import { useNavigate, cn, toaster } from "../../exports.jsx";
 import { FilterIcon } from "lucide-react";
 import { useState } from "react";
 import NoteTypeFilter from "./NoteTypeFilter.jsx";
 import NoteTitleFilter from "./NoteTitleFilter.jsx";
 import NoteTagFilter from "./NoteTagFilter.jsx";
 import { buildFilterUrl } from "../../utils/utilities.js";
+import { useLocation } from "react-router-dom";
 
 function FilterSidebar({ isMobile }) {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const side = isMobile ? "bottom" : "right";
 
@@ -49,8 +44,8 @@ function FilterSidebar({ isMobile }) {
             );
         }
         return (
-            <button className="">
-                <FilterIcon className="" size={28} />
+            <button>
+                <FilterIcon className="text-sky-400" size={24} />
             </button>
         );
     };
@@ -63,16 +58,24 @@ function FilterSidebar({ isMobile }) {
             toaster.error(`Empty filter conditions!`, { duration: 1.5 * 1000 });
             return;
         }
-        console.log(filterState);
-        const url = buildFilterUrl(filterState, "/dashboard");
+        const url = buildFilterUrl(filterState, location.pathname);
         navigate(url, { state: { fromFilter: true } });
         setIsOpen(false);
-        console.log(`url=`, url);
+    };
+
+    const handleClearFilter = () => {
+        setFilterState({
+            noteType: "",
+            titleCondition: "",
+            titleQuery: "",
+            tagCondition: "",
+            tagQuery: "",
+        });
     };
 
     const renderFilterSheet = () => {
         return (
-            <Sheet open={isOpen} onOpenChange={setIsOpen} className="">
+            <Sheet open={isOpen} modal={true} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild className="cursor-pointer">
                     {renderTriggerButton()}
                 </SheetTrigger>
@@ -112,12 +115,20 @@ function FilterSidebar({ isMobile }) {
                         />
                     </div>
                     <SheetFooter>
-                        <button
-                            onClick={handleFilter}
-                            className="btn bg-primary hover:bg-emerald-800  w-full sm:text-lg leading-5 font-semibold text-gray-300"
-                        >
-                            Filter Notes
-                        </button>
+                        <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-4">
+                            <button
+                                onClick={handleFilter}
+                                className="btn bg-primary hover:bg-emerald-800 border-none  w-full sm:w-1/2 sm:text-lg leading-5 font-semibold text-gray-300"
+                            >
+                                Filter Notes
+                            </button>
+                            <button
+                                onClick={handleClearFilter}
+                                className="btn bg-rose-700 hover:bg-rose-800 border-none  w-full sm:w-1/2 sm:text-lg leading-5 font-semibold text-white"
+                            >
+                                Clear Filters
+                            </button>
+                        </div>
                     </SheetFooter>
                 </SheetContent>
             </Sheet>

@@ -13,7 +13,7 @@ const store = create(
         immer((set) => ({
             noteList: [],
             isLoading: false,
-            pins: [],
+            pinnedNotes: [],
             async fetchUserNoteList() {
                 set({ isLoading: true });
                 try {
@@ -83,6 +83,43 @@ const store = create(
                     const data = await createNewNote(noteData);
                     const newNote = data.dataSource?.data;
                     set((old) => ({ noteList: [...old.noteList, newNote] }));
+                } catch (error) {
+                } finally {
+                    set({ isLoading: false });
+                }
+            },
+
+            async fetchFilterNotes(search = "") {
+                set({ isLoading: true });
+                try {
+                    const { data } = await Axios.get(
+                        ApiEndpoints.filterNote(search)
+                    );
+                    set({ noteList: data.dataSource?.notes });
+                } catch (error) {
+                } finally {
+                    set({ isLoading: false });
+                }
+            },
+            async fetchPinnedNotes() {
+                set({ isLoading: true });
+                try {
+                    const { data } = await Axios.get(
+                        ApiEndpoints.filterNote("?isPinned=true")
+                    );
+                    set({ pinnedNotes: data.dataSource?.notes });
+                } catch (error) {
+                } finally {
+                    set({ isLoading: false });
+                }
+            },
+            async fetchFilterPinnedNotes(search = "") {
+                set({ isLoading: true });
+                try {
+                    const { data } = await Axios.get(
+                        ApiEndpoints.filterNote(search + "&isPinned=true")
+                    );
+                    set({ pinnedNotes: data.dataSource?.notes });
                 } catch (error) {
                 } finally {
                     set({ isLoading: false });

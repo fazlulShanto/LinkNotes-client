@@ -134,7 +134,7 @@ export default function SignUp() {
                     <span className="text-gray-400">
                         {"Already have an account? "}
                     </span>
-                    <Link to={"/signin"} className="w-full text-sky-400">
+                    <Link to={"/sign-in"} className="w-full text-sky-400">
                         Sign In
                     </Link>
                 </p>

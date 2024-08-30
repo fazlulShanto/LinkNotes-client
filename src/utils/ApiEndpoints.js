@@ -4,6 +4,7 @@ const ApiEndpoints = {
     singUp: () => `${baseUrl}/api/user/sign-up`,
     signOut: () => `${baseUrl}/api/user/log-out`,
     dummyData: () => `${baseUrl}/api/dummy-data`,
+    apiHealth: () => `${baseUrl}/api/health-check`,
     me: () => `${baseUrl}/api/user/me`,
     notes: () => `${baseUrl}/api/notes`,
     getAllNotes: () => `${baseUrl}/api/notes`,
@@ -11,6 +12,7 @@ const ApiEndpoints = {
     deleteNotes: () => `${baseUrl}/api/notes`,
     pinnedNotes: () => `${baseUrl}/api/notes/pinned-notes`,
     updateNote: (noteId) => `${baseUrl}/api/notes/${noteId}`,
+    filterNote: (queryParams) => `${baseUrl}/api/notes/filter/${queryParams}`,
     toggleNotePin: (noteId, isPinned) =>
         `${baseUrl}/api/notes/toggle-pin?noteId=${noteId}&isPinned=${isPinned}`,
     toggleCheckItem: (noteId, itemId, isChecked) =>

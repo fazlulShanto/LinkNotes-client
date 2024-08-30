@@ -23,7 +23,7 @@ function AppSidebar() {
             .then((res) => {
                 if (res) {
                     toast.success(`Successfully signed-out!`);
-                    navigate("/signin");
+                    navigate("/sign-in");
                 }
             })
             .catch((er) => {

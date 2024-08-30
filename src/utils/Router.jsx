@@ -4,10 +4,13 @@ import AppShell from "../components/AppShell";
 import LandingPage from "../pages/LandingPage";
 import RecoverPassword from "../pages/RecoverPassword";
 import PinnedNotes from "../pages/PinnedNotes";
+import ErrorBoundary from "../components/ErrorBoundary";
+import FAQ from "../pages/FAQ";
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <LandingPage />,
+        errorElement: <ErrorBoundary />,
     },
     {
         path: "/sign-up",
@@ -40,6 +43,14 @@ export const router = createBrowserRouter([
                 element: <PinnedNotes />,
             },
         ],
+    },
+    {
+        path: "/faq",
+        element: <FAQ />,
+    },
+    {
+        path: "/status",
+        element: <FAQ />,
     },
 ]);
 

@@ -11,7 +11,7 @@ import { UserCogIcon } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { signOutService } from "../services/authService";
-import { toast, useAppContext } from "../exports";
+import { cn, toast, useAppContext } from "../exports";
 import {
     Sheet,
     SheetClose,
@@ -26,25 +26,12 @@ import AppSidebar from "./AppSidebar";
 import { Link } from "react-router-dom";
 import { HomeIcon } from "lucide-react";
 import FilterSidebar from "./filter-sidebar";
+import { useLocation } from "react-router-dom";
 
-export default function AppHeader({ userAvatarUrl }) {
+export default function AppHeader() {
     const navigate = useNavigate();
-    const { state } = useAppContext();
+    const location = useLocation();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const renderAvatar = () => {
-        return (
-            <button>
-                <div className="avatar mr-1">
-                    <div className="ring-primary ring-offset-accent-100 size-8 md:size-10 rounded-full ring ring-offset-2">
-                        <img
-                            alt="user-avatar"
-                            src={userAvatarUrl || defaultUser}
-                        />
-                    </div>
-                </div>
-            </button>
-        );
-    };
     const renderAppLogo = () => {
         return (
             <div className=" mr-1">
@@ -73,7 +60,12 @@ export default function AppHeader({ userAvatarUrl }) {
             <div className="flex flex-grow  justify-end gap-4 items-center">
                 <div className="hidden sm:flex sm:gap-2">
                     <Link
-                        className="btn hover:bg-sky-600 text-gray-200 bg-slate-700"
+                        className={cn(
+                            "btn hover:bg-sky-600 text-gray-200 bg-slate-700",
+                            {
+                                "bg-sky-700": location.pathname == "/dashboard",
+                            }
+                        )}
                         to={"dashboard"}
                     >
                         <HomeIcon className="" size={24} />
@@ -81,7 +73,13 @@ export default function AppHeader({ userAvatarUrl }) {
                     </Link>
                     <button
                         onClick={() => navigate("/pinned-notes")}
-                        className="btn  hover:bg-sky-600 text-gray-200 bg-slate-700"
+                        className={cn(
+                            "btn hover:bg-sky-600 text-gray-200 bg-slate-700",
+                            {
+                                "bg-sky-700":
+                                    location.pathname == "/pinned-notes",
+                            }
+                        )}
                     >
                         <PinIcon className="rotate-45" />
                         <span>Pinned notes</span>
