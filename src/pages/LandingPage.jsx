@@ -7,7 +7,7 @@ import { Tag } from "lucide-react";
 import { Pin } from "lucide-react";
 import { SearchCheck } from "lucide-react";
 import { Link } from "react-router-dom";
-
+const directLink = "http://88.198.37.107:4019";
 export default function LandingPage() {
     return (
         <div className="w-screen h-screen relative bg-primary flex flex-col gap-6">
@@ -95,7 +95,7 @@ export default function LandingPage() {
             </main>
             <footer
                 id="cta"
-                className="flex w-full justify-around sm:justify-center sm:gap-24 mb-8 sm:mt-8"
+                className="flex w-full justify-around sm:justify-center sm:gap-24 sm:mt-8"
             >
                 <Link to={"/sign-in"}>
                     <button
@@ -114,6 +114,22 @@ export default function LandingPage() {
                     </button>
                 </Link>
             </footer>
+            <div className="flex h-fit gap-2 sm:mt-auto w-full justify-center ">
+                <Link
+                    className="text-xs hover:text-yellow-300 font-medium"
+                    to={"/faq"}
+                >
+                    FAQ
+                </Link>
+                <span className="h-3 self-center  w-0.5 rounded-lg border bg-gray-300"></span>
+                <a
+                    target="_blank"
+                    className="hover:text-yellow-300 w-fit  text-xs font-medium"
+                    href={directLink}
+                >
+                    Direct Link
+                </a>
+            </div>
         </div>
     );
 }

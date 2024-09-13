@@ -64,7 +64,7 @@ export default function Dashboard() {
             {isEmptyNoteList ? (
                 <EmptyNotes isFilterResult={showClearFilter} />
             ) : (
-                <div className="columns-1 sm:columns-2 md:columns-3 w-full space-y-3 gap-3">
+                <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 w-full space-y-3 gap-3">
                     {userNoteList.map((data, idx) => (
                         <div key={idx + data.noteTitle}>
                             <NotesCard notesData={data} />
