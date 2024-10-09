@@ -11,7 +11,7 @@ import {
     stateActions,
 } from "../exports";
 import BrandLogo from "../components/BrandLogo";
-import { appName, developerInfo } from "../utils/Contents";
+import { appName, developerInfo, LOCAL_STORAGE_TOKEN } from "../utils/Contents";
 
 export default function LogIn() {
     const [email, setEmail] = useState("");
@@ -24,7 +24,8 @@ export default function LogIn() {
         setShowLoader(true);
         try {
             const response = await signInService({ email, password });
-            const { userData } = response?.data?.dataSource;
+            const { userData, token } = response?.data?.dataSource;
+            localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
             dispatch({
                 action: stateActions.updateUserInfo,
                 data: userData,

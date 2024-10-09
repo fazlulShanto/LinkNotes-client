@@ -9,6 +9,7 @@ import { SearchCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 const directLink = "http://88.198.37.107:4019";
 export default function LandingPage() {
+    console.log(`🛑 rending LandingPage`, import.meta.env);
     return (
         <div className="w-screen h-screen relative bg-primary flex flex-col gap-6">
             <header className="flex flex-col items-center pt-6 sm:pt-12 text-gray-100 leading-5 gap-4 sm:gap-1">

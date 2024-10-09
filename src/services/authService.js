@@ -19,6 +19,7 @@ export const signUpService = async ({
 };
 export const signOutService = async () => {
     const response = await Axios.get(ApiEndpoints.signOut());
+    localStorage.clear();
     return response.status === 200;
 };
 
