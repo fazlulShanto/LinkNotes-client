@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AWS from "aws-sdk";
 import AppLogo from "../assets/appLogoWithoutBG.png";
 import { appName } from "../utils/Contents";
 import LandingAnimations from "../assets/landing-animation.webm";
