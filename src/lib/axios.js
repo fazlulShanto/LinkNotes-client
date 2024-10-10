@@ -25,10 +25,10 @@ export const baseUrl = getBaseUrl();
 const Axios = axios.create({
     baseURL: baseUrl,
     timeout: 20 * 1000,
-    withCredentials: true,
-    headers: {
-        "Content-Type": "application/json",
-        token: localStorage.getItem("token") ?? "",
-    },
+    // withCredentials: true,
+    // headers: {
+    //     "Content-Type": "application/json",
+    //     token: localStorage.getItem("token"),
+    // },
 });
 export default Axios;

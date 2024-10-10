@@ -18,7 +18,12 @@ const store = create(
                 set({ isLoading: true });
                 try {
                     const { data } = await Axios.get(
-                        ApiEndpoints.getAllNotes()
+                        ApiEndpoints.getAllNotes(),
+                        {
+                            headers: {
+                                token: localStorage.getItem("token"),
+                            },
+                        }
                     );
                     set({ noteList: data.dataSource?.notes });
                 } catch (error) {
@@ -65,6 +70,11 @@ const store = create(
                         ApiEndpoints.updateNote(noteData._id),
                         {
                             data: noteData,
+                        },
+                        {
+                            headers: {
+                                token: localStorage.getItem("token"),
+                            },
                         }
                     );
                     set((old) => {
@@ -93,7 +103,12 @@ const store = create(
                 set({ isLoading: true });
                 try {
                     const { data } = await Axios.get(
-                        ApiEndpoints.filterNote(search)
+                        ApiEndpoints.filterNote(search),
+                        {
+                            headers: {
+                                token: localStorage.getItem("token"),
+                            },
+                        }
                     );
                     set({ noteList: data.dataSource?.notes });
                 } catch (error) {
@@ -105,7 +120,12 @@ const store = create(
                 set({ isLoading: true });
                 try {
                     const { data } = await Axios.get(
-                        ApiEndpoints.filterNote("?isPinned=true")
+                        ApiEndpoints.filterNote("?isPinned=true"),
+                        {
+                            headers: {
+                                token: localStorage.getItem("token"),
+                            },
+                        }
                     );
                     set({ pinnedNotes: data.dataSource?.notes });
                 } catch (error) {
@@ -117,7 +137,12 @@ const store = create(
                 set({ isLoading: true });
                 try {
                     const { data } = await Axios.get(
-                        ApiEndpoints.filterNote(search + "&isPinned=true")
+                        ApiEndpoints.filterNote(search + "&isPinned=true"),
+                        {
+                            headers: {
+                                token: localStorage.getItem("token"),
+                            },
+                        }
                     );
                     set({ pinnedNotes: data.dataSource?.notes });
                 } catch (error) {

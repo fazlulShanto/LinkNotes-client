@@ -57,7 +57,7 @@ function ViewNotesModal({ isModalOpen, onClose, noteData = defaultNoteData }) {
             case "text": {
                 return (
                     <div className="flex flex-col gap-2">
-                        <div className="whitespace-pre-line bg-primary p-2">
+                        <div className="whitespace-pre-line break-words bg-primary p-2">
                             {noteData.noteContent.value}
                         </div>
                         <button

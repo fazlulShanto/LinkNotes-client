@@ -1,4 +1,5 @@
 import { ApiEndpoints, Axios } from "../exports";
+import { LOCAL_STORAGE_TOKEN } from "../utils/Contents";
 export const signInService = async ({ email, password }) => {
     const response = await Axios.post(ApiEndpoints.singIn(), {
         email,
@@ -28,7 +29,9 @@ export const verifyUser = async () => {
         data: {
             dataSource: { userData },
         },
-    } = await Axios.get(ApiEndpoints.me());
+    } = await Axios.get(ApiEndpoints.me(), {
+        headers: { token: localStorage.getItem(LOCAL_STORAGE_TOKEN) },
+    });
 
     return userData;
 };
