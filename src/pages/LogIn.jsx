@@ -9,14 +9,18 @@ import {
     useAppContext,
     useNavigate,
     stateActions,
+    verifyUser,
 } from "../exports";
 import BrandLogo from "../components/BrandLogo";
 import { appName, developerInfo, LOCAL_STORAGE_TOKEN } from "../utils/Contents";
+import { useEffect } from "react";
+import { useId } from "react";
 
 export default function LogIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showLoader, setShowLoader] = useState(false);
+    const [session, setSession] = useState(useId());
     const navigator = useNavigate();
     const { dispatch } = useAppContext();
 
@@ -44,6 +48,12 @@ export default function LogIn() {
             setShowLoader(false);
         }
     };
+
+    useEffect(() => {
+        verifyUser().then(() => {
+            navigator("/dashboard");
+        });
+    }, [session]);
 
     return (
         <div className="w-screen relative text-gray-300 h-screen flex justify-center px-4 items-center bg-slate-900">

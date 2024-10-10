@@ -11,6 +11,8 @@ import { useAppContext, useNavigate, toast } from "../exports.jsx";
 import { UserCogIcon } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { signOutService } from "../services/authService.js";
+import { FilePlusIcon } from "lucide-react";
+import ImageUploader from "./FileUploader.jsx";
 
 function AppSidebar() {
     const { state } = useAppContext();
@@ -19,11 +21,12 @@ function AppSidebar() {
     const navigate = useNavigate();
 
     const handleSignOut = () => {
+        localStorage.clear();
         signOutService()
             .then((res) => {
                 if (res) {
                     toast.success(`Successfully signed-out!`);
-                    navigate("/sign-in");
+                    navigate("/");
                 }
             })
             .catch((er) => {
@@ -41,12 +44,15 @@ function AppSidebar() {
         );
     };
     return (
-        <Sheet className="">
+        <Sheet>
             <SheetTrigger asChild className="cursor-pointer">
                 {renderAvatar()}
             </SheetTrigger>
 
-            <SheetContent className="bg-slate-800 border-none flex flex-col gap-2 shadow-lg w-2/3 sm:w-1/2  text-gray-200">
+            <SheetContent
+                onOpenAutoFocus={(e) => e.preventDefault()}
+                className="bg-slate-800 border-none flex flex-col gap-2 h-full shadow-lg w-2/3 sm:w-1/2 border border-yellow-300 text-gray-200"
+            >
                 <SheetHeader>
                     <SheetTitle className={"flex gap-4 items-center"}>
                         {renderAvatar()}
@@ -54,14 +60,10 @@ function AppSidebar() {
                     </SheetTitle>
                     <SheetDescription></SheetDescription>
                 </SheetHeader>
-                <div className="flex w-full flex-col">
-                    <button
-                        onClick={() => navigate("/profile")}
-                        className="btn btn-info btn-ghost font-medium hover:text-sky-300"
-                    >
-                        <UserCogIcon />
-                        Edit Profile
-                    </button>
+                <div className="flex w-full flex-grow flex-col justify-between">
+                    <div className="w-full h-auto">
+                        <ImageUploader profilePhoto={userAvatarUrl} />
+                    </div>
                     <button
                         onClick={handleSignOut}
                         className="btn btn-ghost w-full font-medium hover:text-sky-300 self-baseline"

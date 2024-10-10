@@ -18,6 +18,7 @@ const ApiEndpoints = {
         `${baseUrl}/api/notes/toggle-pin?noteId=${noteId}&isPinned=${isPinned}`,
     toggleCheckItem: (noteId, itemId, isChecked) =>
         `${baseUrl}/api/notes/toggle-checkbox-item?noteId=${noteId}&itemId=${itemId}&isChecked=${isChecked}`,
+    updateAvatarUrl: () => `${baseUrl}/api/user/profile`,
 };
 
 export default ApiEndpoints;

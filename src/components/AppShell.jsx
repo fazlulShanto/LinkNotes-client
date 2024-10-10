@@ -18,6 +18,7 @@ import CreateNotesModal from "./CreateNoteModal";
 import FilterSidebar from "./filter-sidebar";
 import { PlusIcon } from "lucide-react";
 import { useLocation } from "react-router-dom";
+import { signOutService } from "../services/authService";
 
 export default function AppShell() {
     // check if user authenticated
@@ -39,12 +40,18 @@ export default function AppShell() {
                     data: info,
                 });
             } catch (error) {
-                // if failed logout user
+                // if failed, logout user
+                signOutService();
+                dispatch({
+                    action: stateActions.updateUserInfo,
+                    data: {},
+                });
+                localStorage.clear();
                 navigator("/sign-in");
             }
         };
         checker();
-    }, [state.userInfo.userId]);
+    }, []);
 
     const bottomMenuIconSize = 24;
     return (

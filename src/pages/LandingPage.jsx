@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import AWS from "aws-sdk";
 import AppLogo from "../assets/appLogoWithoutBG.png";
 import { appName } from "../utils/Contents";
 import LandingAnimations from "../assets/landing-animation.webm";
@@ -10,6 +11,7 @@ import { Link } from "react-router-dom";
 const directLink = "http://88.198.37.107:4019";
 export default function LandingPage() {
     console.log(`🛑 rending LandingPage`, import.meta.env);
+
     return (
         <div className="w-screen h-screen relative bg-primary flex flex-col gap-6">
             <header className="flex flex-col items-center pt-6 sm:pt-12 text-gray-100 leading-5 gap-4 sm:gap-1">
@@ -29,6 +31,7 @@ export default function LandingPage() {
                     Notes, Checklists, and Bookmarks - Your Way!
                 </p>
             </header>
+
             <main className="flex h-full sm:h-auto flex-col sm:flex-row gap-8">
                 <section className="sm:w-1/2">
                     <video
